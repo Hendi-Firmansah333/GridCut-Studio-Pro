@@ -158,15 +158,15 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
   };
 
   return (
-    <section className="control-card">
+    <section className="control-card glass-card">
       <div className="card-header">
         <ImageIcon size={18} style={{ color: '#00f2fe' }} />
-        <h2>1. Pilih Gambar</h2>
+        <h2>Upload & Pilih Gambar</h2>
       </div>
 
       {!sourceImage ? (
         <div 
-          className={`drop-zone ${isDragging ? 'dragging' : ''}`}
+          className={`drop-zone glass-drop ${isDragging ? 'dragging' : ''}`}
           onClick={() => fileInputRef.current?.click()}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -181,15 +181,15 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
           />
           <div className="drop-zone-content">
             <div className="drop-icon-wrapper">
-              <UploadCloud size={24} />
+              <UploadCloud size={26} />
             </div>
             <p className="drop-title">Drop & Paste foto di sini</p>
-            <p className="drop-subtitle">Atau klik untuk pilih file (PNG, JPG, WebP)</p>
-            <span className="btn btn-sm btn-outline mt-2">Pilih dari Komputer</span>
+            <p className="drop-subtitle">Atau klik untuk pilih dari perangkat (PNG, JPG, WebP)</p>
+            <span className="btn btn-sm btn-primary mt-3 shadow-glow">Pilih Foto Sekarang</span>
           </div>
         </div>
       ) : (
-        <div className="image-info-card">
+        <div className="image-info-card glass-surface">
           <div className="info-preview">
             <img src={sourceImage.src} alt="Active Preview" />
           </div>
@@ -210,7 +210,7 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
       )}
 
       <div className="sample-section divider-top">
-        <span className="sample-label">Gunakan Gambar Sampel (Klik untuk Coba)</span>
+        <span className="sample-label">Atau coba dengan gambar sampel:</span>
         <div className="sample-grid">
           <button className="sample-btn" onClick={() => generateSample('landscape')} title="Panorama 3:1 Sunset">
             <Sparkles size={13} style={{ color: '#f59e0b' }} />

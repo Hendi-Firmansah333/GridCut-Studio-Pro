@@ -12,16 +12,16 @@ export default function ResultsGallery({
   if (tiles.length === 0) {
     return (
       <div className="tab-content active">
-        <div className="canvas-viewport">
-          <div className="preview-empty">
+        <div className="canvas-viewport glass-surface">
+          <div className="preview-empty glass-card">
             <div className="empty-glow-circle">
-              <Scissors size={36} />
+              <Scissors size={38} />
             </div>
             <h3>Belum Ada Hasil Potongan</h3>
             <p>
-              Klik tombol <strong>"✨ Potong Gambar Sekarang"</strong> di panel sebelah kiri setelah selesai mengatur opsi pemotongan.
+              Pilih foto terlebih dahulu lalu klik tombol <strong>"Potong & Upscale Gambar Sekarang"</strong> di panel sebelah kiri.
             </p>
-            <div className="empty-actions">
+            <div className="empty-actions mt-3">
               <button className="btn btn-outline" onClick={onSwitchToPreview}>
                 <span>Kembali ke Live Preview</span>
               </button>

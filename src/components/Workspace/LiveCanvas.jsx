@@ -60,20 +60,20 @@ export default function LiveCanvas({
         </div>
       </div>
 
-      <div className="canvas-viewport">
+      <div className="canvas-viewport glass-surface">
         {!sourceImage ? (
-          <div className="preview-empty">
+          <div className="preview-empty glass-card shadow-glow">
             <div className="empty-glow-circle">
-              <UploadCloud size={36} />
+              <UploadCloud size={40} />
             </div>
-            <h3>Belum Ada Gambar di Workspace</h3>
+            <h3>Siap untuk Memotong Gambar</h3>
             <p>
-              Silakan pilih/drag-and-drop foto Anda di panel sebelah kiri, atau coba langsung gunakan tombol gambar sampel (*Landscape*, *Portrait IG*, *Neon Grid*).
+              Langsung drag-and-drop foto Anda di panel upload sebelah kiri atau klik tombol di bawah ini untuk memulai. Tanpa instalasi, pemrosesan super cepat di browser Anda!
             </p>
-            <div className="empty-actions">
-              <button className="btn btn-primary" onClick={onTriggerUpload}>
-                <UploadCloud size={18} />
-                <span>Pilih File Gambar</span>
+            <div className="empty-actions mt-4">
+              <button className="btn btn-lg btn-primary shadow-glow" onClick={onTriggerUpload}>
+                <UploadCloud size={20} />
+                <span>Upload & Pilih File Gambar</span>
               </button>
             </div>
           </div>

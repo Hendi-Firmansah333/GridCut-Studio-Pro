@@ -152,17 +152,6 @@ export default function App() {
     }
   };
 
-  // Auto-load default sample on startup
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!sourceImage) {
-        // Trigger default sample creation
-        const btn = document.querySelector('.sample-btn');
-        if (btn) btn.click();
-      }
-    }, 400);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <>

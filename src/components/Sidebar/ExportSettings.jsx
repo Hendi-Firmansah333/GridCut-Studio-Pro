@@ -15,10 +15,10 @@ export default function ExportSettings({
   return (
     <>
       {/* HD Upscaling & Pixel Enhancement Card */}
-      <section className="control-card" style={{ border: '1px solid rgba(0, 242, 254, 0.3)', background: 'rgba(0, 242, 254, 0.04)' }}>
+      <section className="control-card glass-card glass-glow-card">
         <div className="card-header">
           <Zap size={18} style={{ color: '#00f2fe' }} />
-          <h2 className="text-gradient">4. Super HD Resolution & Upscaling</h2>
+          <h2 className="text-gradient">Super HD Resolution & Upscaling</h2>
         </div>
         <p className="text-xs text-muted">
           Menambah piksel foto hasil potong agar tidak pecah saat diupload ke Instagram & media sosial!
@@ -77,10 +77,10 @@ export default function ExportSettings({
       </section>
 
       {/* Export Format & Cut Buttons Card */}
-      <section className="control-card">
+      <section className="control-card glass-card">
         <div className="card-header">
           <DownloadCloud size={18} style={{ color: '#00f2fe' }} />
-          <h2>5. Ekspor & Unduh</h2>
+          <h2>Ekspor & Unduh</h2>
         </div>
 
         <div className="form-group">
@@ -115,7 +115,7 @@ export default function ExportSettings({
 
         <div className="action-buttons-stack">
           <button
-            className="btn btn-lg btn-primary w-full"
+            className="btn btn-lg btn-primary btn-action-hero w-full"
             disabled={!hasImage || isProcessing}
             onClick={onCutNow}
           >
@@ -127,18 +127,18 @@ export default function ExportSettings({
             ) : (
               <>
                 <Scissors size={20} />
-                <span>✨ Potong & Upscale Gambar Sekarang</span>
+                <span>Potong & Upscale Gambar Sekarang</span>
               </>
             )}
           </button>
 
           <button
-            className="btn btn-lg btn-success w-full"
+            className="btn btn-lg btn-success btn-action-hero w-full"
             disabled={!hasImage || slicedCount === 0 || isProcessing}
             onClick={onDownloadZip}
           >
             <Package size={20} />
-            <span>📦 Download Semua (ZIP HD)</span>
+            <span>Download Semua (ZIP HD)</span>
             {slicedCount > 0 && (
               <span className="badge-value ml-1" style={{ background: 'rgba(255,255,255,0.2)', color: '#fff' }}>
                 {slicedCount} Foto

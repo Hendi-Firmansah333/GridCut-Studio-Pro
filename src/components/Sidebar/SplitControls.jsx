@@ -18,10 +18,10 @@ export default function SplitControls({ options, onChangeOption }) {
   } = options;
 
   return (
-    <section className="control-card">
+    <section className="control-card glass-card">
       <div className="card-header">
         <Sliders size={18} style={{ color: '#00f2fe' }} />
-        <h2>3. Pengaturan Potong & Grid</h2>
+        <h2>Pengaturan Potong & Grid</h2>
       </div>
 
       <div className="segmented-control">

@@ -12,17 +12,17 @@ export default function Presets({ currentPreset, onSelectPreset }) {
   ];
 
   return (
-    <section className="control-card">
+    <section className="control-card glass-card">
       <div className="card-header">
         <Layers size={18} style={{ color: '#00f2fe' }} />
-        <h2>2. Preset Cepat (One-Click)</h2>
+        <h2>Preset Cepat (One-Click)</h2>
       </div>
 
       <div className="preset-grid">
         {presets.map(p => (
           <div
             key={p.id}
-            className={`preset-card ${currentPreset === p.id ? 'active' : ''}`}
+            className={`preset-card glass-surface ${currentPreset === p.id ? 'active' : ''}`}
             onClick={() => onSelectPreset(p.id)}
           >
             <div className={`preset-icon ${p.iconClass}`}></div>

@@ -3,7 +3,7 @@ import { Grid, HelpCircle, Sun, Moon } from 'lucide-react';
 
 export default function Header({ theme, toggleTheme, onOpenGuide }) {
   return (
-    <header className="studio-header">
+    <header className="studio-header glass-surface shadow-md">
       <div className="header-brand">
         <div className="brand-logo">
           <Grid size={24} />
