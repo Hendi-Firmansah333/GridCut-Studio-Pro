@@ -1,6 +1,6 @@
 /**
  * GridCut Studio Pro — Exporter Engine (ES6 Module for React)
- * Handles JSZip batch archiving, direct file download, and clipboard copy.
+ * Handles JSZip batch archiving, direct file download, clipboard copy, and Mockup Feed Sheet generation.
  */
 
 import JSZip from 'jszip';
@@ -90,4 +90,123 @@ export function downloadSingleTile(tile) {
   link.click();
   document.body.removeChild(link);
   return true;
+}
+
+/**
+ * Generate & Download Instagram Feed Profile Mockup Preview Sheet (PNG)
+ */
+export async function downloadFeedMockupSheet(tiles, options = {}, onProgress = () => {}) {
+  if (!tiles || tiles.length === 0) return false;
+
+  onProgress('Membuat Mockup Sheet IG...');
+  try {
+    const numCols = options.direction === 'both' ? (parseInt(options.cols) || tiles[0]?.totalCols || 3) : (tiles[0]?.totalCols || 3);
+    const numRows = Math.ceil(tiles.length / numCols);
+
+    const thumbW = 360;
+    const thumbH = 360;
+    const gap = 8;
+    const padding = 32;
+    const headerH = 180;
+
+    const totalW = padding * 2 + numCols * thumbW + (numCols - 1) * gap;
+    const totalH = padding * 2 + headerH + numRows * thumbH + (numRows - 1) * gap;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = totalW;
+    canvas.height = totalH;
+    const ctx = canvas.getContext('2d');
+
+    // Dark sleek background
+    const bgGrad = ctx.createLinearGradient(0, 0, totalW, totalH);
+    bgGrad.addColorStop(0, '#0f172a');
+    bgGrad.addColorStop(1, '#1e293b');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, totalW, totalH);
+
+    // Header card
+    ctx.fillStyle = 'rgba(30, 41, 59, 0.85)';
+    ctx.beginPath();
+    ctx.roundRect(padding, padding, totalW - padding * 2, headerH - 24, 16);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0, 242, 254, 0.4)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Header Typography
+    ctx.fillStyle = '#00f2fe';
+    ctx.font = 'bold 34px Inter, sans-serif';
+    ctx.fillText('📸 MOCKUP PREVIEW — INSTAGRAM PROFILE FEED', padding + 28, padding + 54);
+
+    ctx.fillStyle = '#cbd5e1';
+    ctx.font = '20px Inter, sans-serif';
+    ctx.fillText(`Grid Layout: ${numCols} Kolom × ${numRows} Baris (${tiles.length} Foto Potongan HD)`, padding + 28, padding + 96);
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '16px Inter, sans-serif';
+    ctx.fillText('Tips: Unggah berurutan dari Post terbawah / nomor terbesar menuju nomor #1 agar susunannya pas!', padding + 28, padding + 130);
+
+    // Load and draw all tiles in order
+    const loadImg = (url) => new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = url;
+    });
+
+    for (const tile of tiles) {
+      const img = await loadImg(tile.dataUrl);
+      if (!img) continue;
+
+      const cIdx = (tile.col - 1) % numCols;
+      const rIdx = (tile.row - 1) % numRows;
+
+      const x = padding + cIdx * (thumbW + gap);
+      const y = padding + headerH + rIdx * (thumbH + gap);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.roundRect(x, y, thumbW, thumbH, 6);
+      ctx.clip();
+      ctx.drawImage(img, 0, 0, thumbW, thumbH);
+      ctx.restore();
+
+      // Border around thumbnail
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x, y, thumbW, thumbH);
+
+      // Post badge (#igNumber)
+      const badgeText = options.igOrder ? `#${tile.igNumber}` : `#${tile.seqNumber}`;
+      ctx.fillStyle = (tile.igNumber === 1 && options.igOrder) ? 'rgba(16, 185, 129, 0.92)' : 'rgba(15, 23, 42, 0.88)';
+      ctx.beginPath();
+      ctx.roundRect(x + thumbW - 74, y + thumbH - 42, 64, 32, 16);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 16px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(badgeText, x + thumbW - 42, y + thumbH - 26);
+    }
+
+    const dataUrl = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    const timestamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    link.href = dataUrl;
+    link.download = `GridCut_IG_Feed_Mockup_${timestamp}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    onProgress('Selesai membuat Mockup!');
+    return true;
+  } catch (error) {
+    console.error('Error generating mockup:', error);
+    onProgress('Gagal membuat Mockup.');
+    return false;
+  }
 }

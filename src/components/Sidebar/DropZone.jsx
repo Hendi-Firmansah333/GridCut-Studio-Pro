@@ -158,38 +158,41 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
   };
 
   return (
-    <section className="control-card glass-card">
+    <section className="control-card glass-card card-animated" style={{ '--anim-order': 1 }}>
       <div className="card-header">
-        <ImageIcon size={18} style={{ color: '#00f2fe' }} />
+        <div className="header-icon-pulse">
+          <ImageIcon size={18} style={{ color: '#00f2fe' }} />
+        </div>
         <h2>Upload & Pilih Gambar</h2>
       </div>
 
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        onChange={handleFileChange} 
+        accept="image/*" 
+        hidden 
+      />
+
       {!sourceImage ? (
         <div 
-          className={`drop-zone glass-drop ${isDragging ? 'dragging' : ''}`}
+          className={`drop-zone glass-drop animated-drop ${isDragging ? 'dragging' : ''}`}
           onClick={() => fileInputRef.current?.click()}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            onChange={handleFileChange} 
-            accept="image/*" 
-            hidden 
-          />
           <div className="drop-zone-content">
-            <div className="drop-icon-wrapper">
+            <div className="drop-icon-wrapper floating-anim">
               <UploadCloud size={26} />
             </div>
             <p className="drop-title">Drop & Paste foto di sini</p>
             <p className="drop-subtitle">Atau klik untuk pilih dari perangkat (PNG, JPG, WebP)</p>
-            <span className="btn btn-sm btn-primary mt-3 shadow-glow">Pilih Foto Sekarang</span>
+            <span className="btn btn-sm btn-primary mt-3 shadow-glow animated-btn">Pilih Foto Sekarang</span>
           </div>
         </div>
       ) : (
-        <div className="image-info-card glass-surface">
+        <div className="image-info-card glass-surface scale-in-anim">
           <div className="info-preview">
             <img src={sourceImage.src} alt="Active Preview" />
           </div>
@@ -200,7 +203,7 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
             </p>
           </div>
           <button 
-            className="btn btn-icon-sm btn-danger-ghost" 
+            className="btn btn-icon-sm btn-danger-ghost hover-rotate-anim" 
             onClick={onRemoveImage}
             title="Hapus Gambar"
           >
@@ -212,16 +215,16 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
       <div className="sample-section divider-top">
         <span className="sample-label">Atau coba dengan gambar sampel:</span>
         <div className="sample-grid">
-          <button className="sample-btn" onClick={() => generateSample('landscape')} title="Panorama 3:1 Sunset">
-            <Sparkles size={13} style={{ color: '#f59e0b' }} />
+          <button className="sample-btn animated-sample-btn" onClick={() => generateSample('landscape')} title="Panorama 3:1 Sunset">
+            <Sparkles size={13} className="sample-icon" style={{ color: '#f59e0b' }} />
             <span>Landscape</span>
           </button>
-          <button className="sample-btn" onClick={() => generateSample('portrait')} title="Portrait IG 4:5 Grid">
-            <ImagePlus size={13} style={{ color: '#10b981' }} />
+          <button className="sample-btn animated-sample-btn" onClick={() => generateSample('portrait')} title="Portrait IG 4:5 Grid">
+            <ImagePlus size={13} className="sample-icon" style={{ color: '#10b981' }} />
             <span>IG Portrait</span>
           </button>
-          <button className="sample-btn" onClick={() => generateSample('cyberpunk')} title="Cyberpunk Neon Grid">
-            <Sparkles size={13} style={{ color: '#00f2fe' }} />
+          <button className="sample-btn animated-sample-btn" onClick={() => generateSample('cyberpunk')} title="Cyberpunk Neon Grid">
+            <Sparkles size={13} className="sample-icon" style={{ color: '#00f2fe' }} />
             <span>Neon Grid</span>
           </button>
         </div>

@@ -1,6 +1,6 @@
 /**
  * GridCut Studio Pro — Image Splitter Engine (ES6 Module for React)
- * Handles grid calculation, interactive canvas overlays, HD upscaling, and offscreen slicing.
+ * Handles grid calculation, interactive canvas overlays, AI Filters/Color grading, Watermark branding, HD upscaling, and offscreen slicing.
  */
 
 export function calculateTiles(imageWidth, imageHeight, options = {}) {
@@ -167,6 +167,123 @@ export function calculateTiles(imageWidth, imageHeight, options = {}) {
   return tiles;
 }
 
+/**
+ * Generate CSS / Canvas filter string for AI Filters & Color Grading
+ */
+export function getCanvasFilterString(options = {}) {
+  const {
+    filterPreset = 'normal',
+    brightness = 0,
+    contrast = 0,
+    saturation = 0
+  } = options;
+
+  let filterParts = [];
+
+  // Presets
+  if (filterPreset === 'cinematic') {
+    filterParts.push('contrast(125%) brightness(95%) saturate(135%) sepia(18%) hue-rotate(-12deg)');
+  } else if (filterPreset === 'aesthetic') {
+    filterParts.push('contrast(92%) brightness(108%) saturate(115%)');
+  } else if (filterPreset === 'cyberpunk') {
+    filterParts.push('contrast(135%) brightness(105%) saturate(160%) hue-rotate(18deg)');
+  } else if (filterPreset === 'monochrome') {
+    filterParts.push('grayscale(100%) contrast(140%) brightness(96%)');
+  } else if (filterPreset === 'golden') {
+    filterParts.push('contrast(112%) brightness(106%) saturate(130%) sepia(26%)');
+  }
+
+  // Manual Sliders (-50 to +50)
+  const brightVal = 100 + (parseInt(brightness) || 0);
+  const contVal = 100 + (parseInt(contrast) || 0);
+  const satVal = 100 + (parseInt(saturation) || 0);
+
+  if (brightVal !== 100) filterParts.push(`brightness(${brightVal}%)`);
+  if (contVal !== 100) filterParts.push(`contrast(${contVal}%)`);
+  if (satVal !== 100) filterParts.push(`saturate(${satVal}%)`);
+
+  return filterParts.length > 0 ? filterParts.join(' ') : 'none';
+}
+
+/**
+ * Apply Brand Watermark or IG Handle overlay onto tile or preview
+ */
+export function applyBrandWatermark(ctx, width, height, tile = {}, options = {}, totalTiles = 1, offsetX = 0, offsetY = 0) {
+  const {
+    watermarkEnabled = false,
+    watermarkText = '',
+    watermarkPos = 'bottom-right',
+    watermarkScope = 'last-only',
+    watermarkStyle = 'pill',
+    watermarkOpacity = 0.85
+  } = options;
+
+  if (!watermarkEnabled || !watermarkText || width <= 0 || height <= 0) return;
+
+  if (watermarkScope === 'last-only') {
+    const isLastTile = options.igOrder ? tile.igNumber === 1 : tile.seqNumber === totalTiles;
+    if (!isLastTile) return;
+  }
+
+  ctx.save();
+  ctx.globalAlpha = Math.min(1, Math.max(0.1, parseFloat(watermarkOpacity) || 0.85));
+
+  const fontSize = Math.max(16, Math.min(Math.round(width / 15), Math.round(height / 13)));
+  ctx.font = `bold ${fontSize}px Inter, Outfit, sans-serif`;
+
+  const textMetrics = ctx.measureText(watermarkText);
+  const textW = textMetrics.width;
+  const paddingX = fontSize * 1.1;
+  const paddingY = fontSize * 0.7;
+  const pillW = textW + paddingX * 2;
+  const pillH = fontSize + paddingY * 2;
+
+  let x = offsetX + width - pillW - fontSize * 0.8;
+  let y = offsetY + height - pillH - fontSize * 0.8;
+
+  if (watermarkPos === 'bottom-left') {
+    x = offsetX + fontSize * 0.8;
+    y = offsetY + height - pillH - fontSize * 0.8;
+  } else if (watermarkPos === 'top-right') {
+    x = offsetX + width - pillW - fontSize * 0.8;
+    y = offsetY + fontSize * 0.8;
+  } else if (watermarkPos === 'top-left') {
+    x = offsetX + fontSize * 0.8;
+    y = offsetY + fontSize * 0.8;
+  } else if (watermarkPos === 'center') {
+    x = offsetX + (width - pillW) / 2;
+    y = offsetY + (height - pillH) / 2;
+  }
+
+  if (watermarkStyle === 'pill') {
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
+    ctx.beginPath();
+    ctx.roundRect(x, y, pillW, pillH, pillH / 2);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0, 242, 254, 0.7)';
+    ctx.lineWidth = Math.max(1.5, Math.round(width / 600));
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(watermarkText, x + pillW / 2, y + pillH / 2);
+  } else {
+    // Text-only style with dark outline glow
+    const textX = x + pillW / 2;
+    const textY = y + pillH / 2;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.lineWidth = Math.max(3, Math.round(width / 300));
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.85)';
+    ctx.strokeText(watermarkText, textX, textY);
+    ctx.fillStyle = '#00f2fe';
+    ctx.fillText(watermarkText, textX, textY);
+  }
+
+  ctx.restore();
+}
+
 export function drawPreviewOverlay(canvas, sourceImage, options = {}, showGuides = true) {
   if (!canvas || !sourceImage) return;
 
@@ -181,7 +298,22 @@ export function drawPreviewOverlay(canvas, sourceImage, options = {}, showGuides
   }
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw image with AI filter & color grading if set
+  ctx.save();
+  const filterStr = getCanvasFilterString(options);
+  if (filterStr !== 'none') {
+    ctx.filter = filterStr;
+  }
   ctx.drawImage(sourceImage, 0, 0, canvas.width, canvas.height);
+  ctx.restore();
+
+  // Apply watermark preview if enabled
+  if (options.watermarkEnabled && options.watermarkText && tiles.length > 0) {
+    tiles.forEach(tile => {
+      applyBrandWatermark(ctx, tile.width, tile.height, tile, options, tiles.length, tile.x, tile.y);
+    });
+  }
 
   if (!showGuides || tiles.length === 0) return;
 
@@ -306,10 +438,14 @@ export async function sliceTiles(sourceImage, options = {}) {
     offCanvas.height = tile.outputHeight || tile.height;
     const offCtx = offCanvas.getContext('2d');
 
-    // High quality interpolation for upscaling
     offCtx.imageSmoothingEnabled = true;
     offCtx.imageSmoothingQuality = 'high';
 
+    offCtx.save();
+    const filterStr = getCanvasFilterString(options);
+    if (filterStr !== 'none') {
+      offCtx.filter = filterStr;
+    }
     offCtx.drawImage(
       sourceImage,
       tile.x,
@@ -321,6 +457,7 @@ export async function sliceTiles(sourceImage, options = {}) {
       offCanvas.width,
       offCanvas.height
     );
+    offCtx.restore();
 
     // Apply sharpening filter if upscaling or explicitly enabled
     if (options.sharpenEnabled && (offCanvas.width > tile.width || options.upscaleScale !== '1x')) {
@@ -328,6 +465,11 @@ export async function sliceTiles(sourceImage, options = {}) {
       if (intensity > 0) {
         applyEdgeSharpening(offCtx, offCanvas.width, offCanvas.height, intensity);
       }
+    }
+
+    // Apply watermark branding onto final output tile
+    if (options.watermarkEnabled && options.watermarkText) {
+      applyBrandWatermark(offCtx, offCanvas.width, offCanvas.height, tile, options, tiles.length, 0, 0);
     }
 
     const dataUrl = offCanvas.toDataURL(format, quality);

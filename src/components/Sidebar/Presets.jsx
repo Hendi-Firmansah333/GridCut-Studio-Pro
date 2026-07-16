@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers } from 'lucide-react';
+import { Layers, CheckCircle2 } from 'lucide-react';
 
 export default function Presets({ currentPreset, onSelectPreset }) {
   const presets = [
@@ -12,26 +12,38 @@ export default function Presets({ currentPreset, onSelectPreset }) {
   ];
 
   return (
-    <section className="control-card glass-card">
+    <section className="control-card glass-card card-animated" style={{ '--anim-order': 2 }}>
       <div className="card-header">
-        <Layers size={18} style={{ color: '#00f2fe' }} />
+        <div className="header-icon-pulse">
+          <Layers size={18} style={{ color: '#00f2fe' }} />
+        </div>
         <h2>Preset Cepat (One-Click)</h2>
       </div>
 
       <div className="preset-grid">
-        {presets.map(p => (
-          <div
-            key={p.id}
-            className={`preset-card glass-surface ${currentPreset === p.id ? 'active' : ''}`}
-            onClick={() => onSelectPreset(p.id)}
-          >
-            <div className={`preset-icon ${p.iconClass}`}></div>
-            <div className="preset-text">
-              <strong>{p.title}</strong>
-              <span>{p.subtitle}</span>
+        {presets.map(p => {
+          const isActive = currentPreset === p.id;
+          return (
+            <div
+              key={p.id}
+              className={`preset-card glass-surface animated-preset-item ${isActive ? 'active preset-active-glow' : ''}`}
+              onClick={() => onSelectPreset(p.id)}
+            >
+              <div className={`preset-icon ${p.iconClass} ${isActive ? 'preset-icon-active' : ''}`}></div>
+              <div className="preset-text flex-1">
+                <div className="flex items-center justify-between">
+                  <strong>{p.title}</strong>
+                  {isActive && (
+                    <span className="pop-in-anim text-cyan-400 flex-shrink-0 ml-1">
+                      <CheckCircle2 size={14} />
+                    </span>
+                  )}
+                </div>
+                <span>{p.subtitle}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

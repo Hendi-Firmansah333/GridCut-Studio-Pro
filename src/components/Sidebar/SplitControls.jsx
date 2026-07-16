@@ -18,9 +18,11 @@ export default function SplitControls({ options, onChangeOption }) {
   } = options;
 
   return (
-    <section className="control-card glass-card">
+    <section className="control-card glass-card card-animated" style={{ '--anim-order': 3 }}>
       <div className="card-header">
-        <Sliders size={18} style={{ color: '#00f2fe' }} />
+        <div className="header-icon-pulse">
+          <Sliders size={18} style={{ color: '#00f2fe' }} />
+        </div>
         <h2>Pengaturan Potong & Grid</h2>
       </div>
 

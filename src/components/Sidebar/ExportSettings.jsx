@@ -1,5 +1,5 @@
 import React from 'react';
-import { DownloadCloud, Scissors, Loader2, Package, Sparkles, Zap } from 'lucide-react';
+import { DownloadCloud, Scissors, Loader2, Package, Zap } from 'lucide-react';
 
 export default function ExportSettings({
   options,
@@ -15,10 +15,12 @@ export default function ExportSettings({
   return (
     <>
       {/* HD Upscaling & Pixel Enhancement Card */}
-      <section className="control-card glass-card glass-glow-card">
+      <section className="control-card glass-card glass-glow-card card-animated" style={{ '--anim-order': 6 }}>
         <div className="card-header">
-          <Zap size={18} style={{ color: '#00f2fe' }} />
-          <h2 className="text-gradient">Super HD Resolution & Upscaling</h2>
+          <div className="header-icon-pulse">
+            <Zap size={18} style={{ color: '#00f2fe' }} />
+          </div>
+          <h2 className="text-gradient font-bold">Super HD Resolution & Upscaling</h2>
         </div>
         <p className="text-xs text-muted">
           Menambah piksel foto hasil potong agar tidak pecah saat diupload ke Instagram & media sosial!
@@ -56,7 +58,7 @@ export default function ExportSettings({
           </label>
 
           {sharpenEnabled && (
-            <div className="form-group mt-3">
+            <div className="form-group mt-3 scale-in-anim">
               <div className="label-row">
                 <label>Intensitas Ketajaman (Sharpness Intensity)</label>
                 <span className="badge-value">
@@ -77,9 +79,11 @@ export default function ExportSettings({
       </section>
 
       {/* Export Format & Cut Buttons Card */}
-      <section className="control-card glass-card">
+      <section className="control-card glass-card card-animated" style={{ '--anim-order': 7 }}>
         <div className="card-header">
-          <DownloadCloud size={18} style={{ color: '#00f2fe' }} />
+          <div className="header-icon-pulse">
+            <DownloadCloud size={18} style={{ color: '#00f2fe' }} />
+          </div>
           <h2>Ekspor & Unduh</h2>
         </div>
 
@@ -97,7 +101,7 @@ export default function ExportSettings({
         </div>
 
         {format !== 'image/png' && (
-          <div className="form-group mt-2">
+          <div className="form-group mt-2 scale-in-anim">
             <div className="label-row">
               <label>Kualitas Kompresi</label>
               <span className="badge-value">{Math.round(quality * 100)}%</span>
@@ -115,7 +119,7 @@ export default function ExportSettings({
 
         <div className="action-buttons-stack">
           <button
-            className="btn btn-lg btn-primary btn-action-hero w-full"
+            className="btn btn-lg btn-primary btn-action-hero w-full animated-hero-btn shadow-glow"
             disabled={!hasImage || isProcessing}
             onClick={onCutNow}
           >
@@ -126,21 +130,21 @@ export default function ExportSettings({
               </>
             ) : (
               <>
-                <Scissors size={20} />
+                <Scissors size={20} className="hero-btn-icon" />
                 <span>Potong & Upscale Gambar Sekarang</span>
               </>
             )}
           </button>
 
           <button
-            className="btn btn-lg btn-success btn-action-hero w-full"
+            className="btn btn-lg btn-success btn-action-hero w-full animated-success-btn"
             disabled={!hasImage || slicedCount === 0 || isProcessing}
             onClick={onDownloadZip}
           >
-            <Package size={20} />
+            <Package size={20} className="hero-btn-icon" />
             <span>Download Semua (ZIP HD)</span>
             {slicedCount > 0 && (
-              <span className="badge-value ml-1" style={{ background: 'rgba(255,255,255,0.2)', color: '#fff' }}>
+              <span className="badge-value ml-1 pop-in-anim" style={{ background: 'rgba(255,255,255,0.2)', color: '#fff' }}>
                 {slicedCount} Foto
               </span>
             )}

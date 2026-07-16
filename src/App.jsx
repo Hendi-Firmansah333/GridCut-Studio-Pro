@@ -4,12 +4,14 @@ import GuideModal from './components/GuideModal';
 import DropZone from './components/Sidebar/DropZone';
 import Presets from './components/Sidebar/Presets';
 import SplitControls from './components/Sidebar/SplitControls';
+import ColorEffects from './components/Sidebar/ColorEffects';
+import WatermarkSettings from './components/Sidebar/WatermarkSettings';
 import ExportSettings from './components/Sidebar/ExportSettings';
 import LiveCanvas from './components/Workspace/LiveCanvas';
 import ResultsGallery from './components/Workspace/ResultsGallery';
 import ToastContainer from './components/Toast';
 import { sliceTiles } from './utils/splitter';
-import { downloadAllZip, copyTileToClipboard, downloadSingleTile } from './utils/exporter';
+import { downloadAllZip, copyTileToClipboard, downloadSingleTile, downloadFeedMockupSheet } from './utils/exporter';
 import { Eye, Scissors } from 'lucide-react';
 import './App.css';
 
@@ -42,7 +44,17 @@ export default function App() {
     sharpenEnabled: true,
     sharpenIntensity: 0.35,
     format: 'image/png',
-    quality: 0.92
+    quality: 0.92,
+    filterPreset: 'normal',
+    brightness: 0,
+    contrast: 0,
+    saturation: 0,
+    watermarkEnabled: false,
+    watermarkText: '@username',
+    watermarkPos: 'bottom-right',
+    watermarkScope: 'last-only',
+    watermarkStyle: 'pill',
+    watermarkOpacity: 0.85
   });
 
   // Sync theme with body class and localStorage
@@ -152,6 +164,15 @@ export default function App() {
     }
   };
 
+  const handleDownloadMockup = async () => {
+    if (slicedTiles.length === 0) return;
+    const success = await downloadFeedMockupSheet(slicedTiles, options, (msg) => showToast(msg, 'info'));
+    if (success) {
+      showToast('📱 Berhasil men-download Mockup Sheet Feed Instagram!', 'success');
+    } else {
+      showToast('Gagal membuat Mockup Sheet.', 'danger');
+    }
+  };
 
   return (
     <>
@@ -177,6 +198,16 @@ export default function App() {
           />
 
           <SplitControls
+            options={options}
+            onChangeOption={handleChangeOption}
+          />
+
+          <ColorEffects
+            options={options}
+            onChangeOption={handleChangeOption}
+          />
+
+          <WatermarkSettings
             options={options}
             onChangeOption={handleChangeOption}
           />
@@ -221,7 +252,6 @@ export default function App() {
               options={options}
               showGuides={showGuides}
               onToggleGuides={() => setShowGuides(prev => !prev)}
-              onCutNow={handleCutNow}
               onTriggerUpload={() => {
                 const dropZoneInput = document.querySelector('.drop-zone input[type="file"]');
                 if (dropZoneInput) dropZoneInput.click();
@@ -234,6 +264,7 @@ export default function App() {
               onDownloadTile={handleDownloadTile}
               onCopyTile={handleCopyTile}
               onDownloadZip={handleDownloadZip}
+              onDownloadMockup={handleDownloadMockup}
               onSwitchToPreview={() => setActiveTab('preview')}
             />
           )}
