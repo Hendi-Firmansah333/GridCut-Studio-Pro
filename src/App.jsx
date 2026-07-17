@@ -260,6 +260,8 @@ export default function App() {
           ) : (
             <ResultsGallery
               tiles={slicedTiles}
+              sourceImage={sourceImage}
+              filename={filename}
               options={options}
               onDownloadTile={handleDownloadTile}
               onCopyTile={handleCopyTile}
