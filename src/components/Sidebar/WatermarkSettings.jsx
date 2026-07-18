@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
-import { Shield, ChevronDown, ChevronUp } from 'lucide-react';
+import { Shield, ChevronDown, ChevronUp, ArrowDownRight, ArrowDownLeft, ArrowUpRight, ArrowUpLeft, Crosshair, Palette, Type } from 'lucide-react';
+import CustomDropdown from '../CustomDropdown';
+
+const positionOptions = [
+  { value: 'bottom-right', label: 'Pojok Kanan Bawah (Default)', icon: ArrowDownRight, iconColor: '#38bdf8' },
+  { value: 'bottom-left', label: 'Pojok Kiri Bawah', icon: ArrowDownLeft, iconColor: '#94a3b8' },
+  { value: 'top-right', label: 'Pojok Kanan Atas', icon: ArrowUpRight, iconColor: '#94a3b8' },
+  { value: 'top-left', label: 'Pojok Kiri Atas', icon: ArrowUpLeft, iconColor: '#94a3b8' },
+  { value: 'center', label: 'Posisi Tengah (Center Overlay)', icon: Crosshair, iconColor: '#94a3b8' }
+];
+
+const styleOptions = [
+  { value: 'pill', label: 'Modern Frosted Pill Box (Kotak Kapsul)', icon: Palette, iconColor: '#38bdf8' },
+  { value: 'text-only', label: 'Clean Typography Glow (Teks Bercahaya)', icon: Type, iconColor: '#fbbf24' }
+];
 
 export default function WatermarkSettings({ options, onChangeOption }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -72,17 +86,11 @@ export default function WatermarkSettings({ options, onChangeOption }) {
 
               <div className="form-group mt-3">
                 <label className="text-xs font-semibold">Posisi Watermark</label>
-                <select
+                <CustomDropdown 
+                  options={positionOptions}
                   value={watermarkPos}
-                  className="custom-select w-full text-sm"
-                  onChange={(e) => onChangeOption('watermarkPos', e.target.value)}
-                >
-                  <option value="bottom-right">↘️ Pojok Kanan Bawah (Default)</option>
-                  <option value="bottom-left">↙️ Pojok Kiri Bawah</option>
-                  <option value="top-right">↗️ Pojok Kanan Atas</option>
-                  <option value="top-left">↖️ Pojok Kiri Atas</option>
-                  <option value="center">⏺️ Posisi Tengah (Center Overlay)</option>
-                </select>
+                  onChange={(val) => onChangeOption('watermarkPos', val)}
+                />
               </div>
 
               <div className="form-group mt-3">
@@ -110,14 +118,11 @@ export default function WatermarkSettings({ options, onChangeOption }) {
 
               <div className="form-group mt-3">
                 <label className="text-xs font-semibold">Gaya Tampilan (Style)</label>
-                <select
+                <CustomDropdown 
+                  options={styleOptions}
                   value={watermarkStyle}
-                  className="custom-select w-full text-sm"
-                  onChange={(e) => onChangeOption('watermarkStyle', e.target.value)}
-                >
-                  <option value="pill">🏷️ Modern Frosted Pill Box (Kotak Kapsul Transparan)</option>
-                  <option value="text-only">✨ Clean Typography Glow (Teks Bersih Bercahaya)</option>
-                </select>
+                  onChange={(val) => onChangeOption('watermarkStyle', val)}
+                />
               </div>
 
               <div className="form-group mt-3">

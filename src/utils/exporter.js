@@ -168,7 +168,24 @@ export async function downloadFeedMockupSheet(tiles, options = {}, onProgress = 
       ctx.beginPath();
       ctx.roundRect(x, y, thumbW, thumbH, 6);
       ctx.clip();
-      ctx.drawImage(img, 0, 0, thumbW, thumbH);
+
+      const imgAspect = img.width / img.height;
+      const thumbAspect = thumbW / thumbH;
+      let drawW, drawH, drawX, drawY;
+
+      if (imgAspect > thumbAspect) {
+        drawH = thumbH;
+        drawW = img.width * (thumbH / img.height);
+        drawX = x + (thumbW - drawW) / 2;
+        drawY = y;
+      } else {
+        drawW = thumbW;
+        drawH = img.height * (thumbW / img.width);
+        drawX = x;
+        drawY = y + (thumbH - drawH) / 2;
+      }
+
+      ctx.drawImage(img, drawX, drawY, drawW, drawH);
       ctx.restore();
 
       // Border around thumbnail

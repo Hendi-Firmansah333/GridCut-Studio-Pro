@@ -1,5 +1,20 @@
 import React from 'react';
-import { DownloadCloud, Scissors, Loader2, Package, Zap } from 'lucide-react';
+import { DownloadCloud, Scissors, Loader2, Package, Zap, Flame, Sparkles, Gem, CircleDot, Image as ImageIcon, FileImage, MonitorPlay } from 'lucide-react';
+import CustomDropdown from '../CustomDropdown';
+
+const upscaleOptions = [
+  { value: 'auto1080', label: 'Auto IG HD (Minimal 1080px per Potongan)', icon: Zap, iconColor: '#EAB308' },
+  { value: '3x', label: '3x Super HD (300% Piksel — Rekomendasi Utama)', icon: Flame, iconColor: '#EF4444' },
+  { value: '2x', label: '2x HD Enhancement (200% Piksel Ganda)', icon: Sparkles, iconColor: '#F59E0B' },
+  { value: '4x', label: '4x Ultra HD 4K (400% Super Padat & Tajam)', icon: Gem, iconColor: '#0EA5E9' },
+  { value: '1x', label: '1x Asli (Sesuai Ukuran Potongan Asal Tanpa Tambah Piksel)', icon: CircleDot, iconColor: '#94A3B8' }
+];
+
+const formatOptions = [
+  { value: 'image/png', label: 'PNG (Transparan & Kualitas Resolusi Tertinggi)', icon: ImageIcon, iconColor: '#10B981' },
+  { value: 'image/jpeg', label: 'JPG / JPEG (Ukuran File Ringan untuk Cepat Upload)', icon: FileImage, iconColor: '#F59E0B' },
+  { value: 'image/webp', label: 'WebP (Format Modern Super Cepat & Jernih)', icon: MonitorPlay, iconColor: '#8B5CF6' }
+];
 
 export default function ExportSettings({
   options,
@@ -28,17 +43,11 @@ export default function ExportSettings({
 
         <div className="form-group mt-2">
           <label>Tingkatkan Resolusi Piksel (Upscale Scale)</label>
-          <select
+          <CustomDropdown 
+            options={upscaleOptions}
             value={upscaleScale}
-            className="custom-select"
-            onChange={(e) => onChangeOption('upscaleScale', e.target.value)}
-          >
-            <option value="auto1080">⚡ Auto IG HD (Minimal 1080px per Potongan)</option>
-            <option value="3x">🔥 3x Super HD (300% Piksel — Rekomendasi Utama)</option>
-            <option value="2x">✨ 2x HD Enhancement (200% Piksel Ganda)</option>
-            <option value="4x">💎 4x Ultra HD 4K (400% Super Padat & Tajam)</option>
-            <option value="1x">⚪ 1x Asli (Sesuai Ukuran Potongan Asal Tanpa Tambah Piksel)</option>
-          </select>
+            onChange={(val) => onChangeOption('upscaleScale', val)}
+          />
         </div>
 
         <div className="divider-top">
@@ -89,15 +98,11 @@ export default function ExportSettings({
 
         <div className="form-group">
           <label>Format Gambar Output</label>
-          <select
+          <CustomDropdown 
+            options={formatOptions}
             value={format}
-            className="custom-select"
-            onChange={(e) => onChangeOption('format', e.target.value)}
-          >
-            <option value="image/png">PNG (Transparan & Kualitas Resolusi Tertinggi)</option>
-            <option value="image/jpeg">JPG / JPEG (Ukuran File Ringan untuk Cepat Upload)</option>
-            <option value="image/webp">WebP (Format Modern Super Cepat & Jernih)</option>
-          </select>
+            onChange={(val) => onChangeOption('format', val)}
+          />
         </div>
 
         {format !== 'image/png' && (
