@@ -1,7 +1,7 @@
 import React from 'react';
-import { Grid, HelpCircle, Sun, Moon } from 'lucide-react';
+import { Grid, HelpCircle, Sun, Moon, Camera } from 'lucide-react';
 
-export default function Header({ theme, toggleTheme, onOpenGuide }) {
+export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth }) {
   return (
     <header className="studio-header glass-surface shadow-md">
       <div className="header-brand">
@@ -15,6 +15,25 @@ export default function Header({ theme, toggleTheme, onOpenGuide }) {
       </div>
 
       <div className="header-actions">
+        <button 
+          className="btn btn-sm"
+          onClick={onOpenPhotobooth}
+          style={{ 
+            background: 'linear-gradient(135deg, var(--accent-cyan), #3b82f6)', 
+            color: 'white', 
+            border: 'none', 
+            boxShadow: '0 4px 15px rgba(0,242,254,0.3)', 
+            marginRight: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px'
+          }}
+          title="Buka Photobooth Premium"
+        >
+          <Camera size={16} />
+          <span style={{ fontWeight: 600 }}>Photobooth</span>
+        </button>
+
         <button 
           className="btn btn-sm btn-outline"
           onClick={onOpenGuide}

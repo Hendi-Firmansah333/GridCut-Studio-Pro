@@ -10,6 +10,7 @@ import ExportSettings from './components/Sidebar/ExportSettings';
 import LiveCanvas from './components/Workspace/LiveCanvas';
 import ResultsGallery from './components/Workspace/ResultsGallery';
 import ToastContainer from './components/Toast';
+import PhotoboothModal from './components/PhotoboothModal';
 import { sliceTiles } from './utils/splitter';
 import { downloadAllZip, copyTileToClipboard, downloadSingleTile, downloadFeedMockupSheet } from './utils/exporter';
 import { Eye, Scissors } from 'lucide-react';
@@ -18,6 +19,7 @@ import './App.css';
 export default function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('gridcut_theme') || 'theme-dark');
   const [guideModalOpen, setGuideModalOpen] = useState(false);
+  const [isPhotoboothOpen, setIsPhotoboothOpen] = useState(false);
   const [sourceImage, setSourceImage] = useState(null);
   const [filename, setFilename] = useState('');
   const [showGuides, setShowGuides] = useState(true);
@@ -180,6 +182,7 @@ export default function App() {
         theme={theme}
         toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
         onOpenGuide={() => setGuideModalOpen(true)}
+        onOpenPhotobooth={() => setIsPhotoboothOpen(true)}
       />
 
       <main className="studio-container">
@@ -272,6 +275,11 @@ export default function App() {
           )}
         </section>
       </main>
+
+      <PhotoboothModal
+        isOpen={isPhotoboothOpen}
+        onClose={() => setIsPhotoboothOpen(false)}
+      />
 
       <GuideModal
         isOpen={guideModalOpen}

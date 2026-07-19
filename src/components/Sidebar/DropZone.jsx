@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Image as ImageIcon, UploadCloud, Trash2, Sparkles, ImagePlus } from 'lucide-react';
+import { Image as ImageIcon, UploadCloud, Trash2, Sparkles, ImagePlus, Camera } from 'lucide-react';
 
-export default function DropZone({ sourceImage, filename, onImageLoaded, onRemoveImage }) {
+export default function DropZone({ sourceImage, filename, onImageLoaded, onRemoveImage, onOpenPhotobooth }) {
   const fileInputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -188,7 +188,7 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
             </div>
             <p className="drop-title">Drop & Paste foto di sini</p>
             <p className="drop-subtitle">Atau klik untuk pilih dari perangkat (PNG, JPG, WebP)</p>
-            <span className="btn btn-sm btn-primary mt-3 shadow-glow animated-btn">Pilih Foto Sekarang</span>
+            <span className="btn btn-sm btn-primary mt-3 shadow-glow animated-btn w-full max-w-[240px] block text-center mx-auto">Pilih Foto Sekarang</span>
           </div>
         </div>
       ) : (
