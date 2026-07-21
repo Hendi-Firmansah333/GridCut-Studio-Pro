@@ -602,7 +602,7 @@ export default function PhotoboothModal({ isOpen, onClose }) {
                   <button className="pb-tab-btn active">Pengaturan Sesi</button>
                 </div>
                 
-                <h3 className="pb-sidebar-title"><LayoutPanelLeft size={16} /> 1. Tata Letak (Layout)</h3>
+                <h3 className="pb-sidebar-title"><LayoutPanelLeft size={16} /> Tata Letak (Layout)</h3>
                 <div className="pb-options-grid">
                   {LAYOUTS.map(layout => (
                     <button
@@ -617,7 +617,7 @@ export default function PhotoboothModal({ isOpen, onClose }) {
                   ))}
                 </div>
 
-                <h3 className="pb-sidebar-title"><Scan size={16} /> 2. Filter Lensa</h3>
+                <h3 className="pb-sidebar-title"><Scan size={16} /> Filter Lensa</h3>
                 <div className="pb-options-grid">
                   {FILTERS.map(filter => (
                     <button
@@ -632,7 +632,7 @@ export default function PhotoboothModal({ isOpen, onClose }) {
                   ))}
                 </div>
 
-                <h3 className="pb-sidebar-title"><Palette size={16} /> 3. Desain Bingkai Kertas</h3>
+                <h3 className="pb-sidebar-title"><Palette size={16} /> Desain Bingkai Kertas</h3>
                 <div className="pb-options-grid" style={{ marginBottom: '2rem' }}>
                   {FRAME_DESIGNS.map(frame => (
                     <button
