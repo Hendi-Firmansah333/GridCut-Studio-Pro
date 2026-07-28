@@ -1329,9 +1329,8 @@ body::after {
 }
 
 .card-animated:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.25), 0 0 15px rgba(0, 242, 254, 0.15) !important;
-  border-color: rgba(0, 242, 254, 0.3) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 242, 254, 0.08) !important;
+  border-color: rgba(0, 242, 254, 0.2) !important;
 }
 
 /* 2. Floating & Breathing Elements */
@@ -1443,8 +1442,8 @@ body::after {
 .animated-drop:hover,
 .animated-drop.dragging {
   border-color: var(--accent-cyan) !important;
-  transform: translateY(-3px) scale(1.01) !important;
-  box-shadow: 0 15px 40px rgba(0, 242, 254, 0.22) !important;
+  background: rgba(0, 242, 254, 0.05) !important;
+  box-shadow: 0 5px 25px rgba(0, 242, 254, 0.1) !important;
 }
 
 /* 6. Sample Buttons Interactive Animation */
@@ -1454,9 +1453,8 @@ body::after {
 }
 
 .animated-sample-btn:hover {
-  transform: translateY(-3px) scale(1.04) !important;
   border-color: var(--accent-cyan) !important;
-  box-shadow: 0 6px 18px rgba(0, 242, 254, 0.2) !important;
+  background: rgba(0, 242, 254, 0.05) !important;
 }
 
 .animated-sample-btn .sample-icon {
@@ -1474,9 +1472,9 @@ body::after {
 }
 
 .animated-preset-item:hover {
-  transform: translateY(-3px) scale(1.02) !important;
   border-color: var(--accent-cyan) !important;
-  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.18) !important;
+  background: rgba(0, 242, 254, 0.04) !important;
+  box-shadow: 0 4px 12px rgba(0, 242, 254, 0.08) !important;
 }
 
 .preset-active-glow {
