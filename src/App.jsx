@@ -186,8 +186,8 @@ export default function App() {
       />
 
       <main className="studio-container">
-        {/* Left Panel: Tools & Presets */}
-        <aside className="panel-sidebar left-panel">
+        {/* Left Panel: Tools & Controls */}
+        <aside className="control-sidebar">
           <DropZone
             sourceImage={sourceImage}
             filename={filename}
@@ -198,6 +198,31 @@ export default function App() {
           <Presets
             currentPreset={currentPreset}
             onSelectPreset={handleSelectPreset}
+          />
+
+          <SplitControls
+            options={options}
+            onChangeOption={handleChangeOption}
+          />
+
+          <ColorEffects
+            options={options}
+            onChangeOption={handleChangeOption}
+          />
+
+          <WatermarkSettings
+            options={options}
+            onChangeOption={handleChangeOption}
+          />
+
+          <ExportSettings
+            options={options}
+            onChangeOption={handleChangeOption}
+            hasImage={!!sourceImage}
+            isProcessing={isProcessing}
+            slicedCount={slicedTiles.length}
+            onCutNow={handleCutNow}
+            onDownloadZip={handleDownloadZip}
           />
         </aside>
 
@@ -249,31 +274,6 @@ export default function App() {
             />
           )}
         </section>
-
-        {/* Right Panel: Properties & Export */}
-        <aside className="panel-sidebar right-panel">
-          <SplitControls
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
-          <ColorEffects
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
-          <WatermarkSettings
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
-          <ExportSettings
-            options={options}
-            onChangeOption={handleChangeOption}
-            hasImage={!!sourceImage}
-            isProcessing={isProcessing}
-            slicedCount={slicedTiles.length}
-            onCutNow={handleCutNow}
-            onDownloadZip={handleDownloadZip}
-          />
-        </aside>
       </main>
 
       <PhotoboothModal
