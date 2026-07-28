@@ -41,7 +41,8 @@
   --font-main: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
   
-  --sidebar-width: 430px;
+  --sidebar-left-width: 320px;
+  --sidebar-right-width: 380px;
 }
 
 body.theme-light {
@@ -327,13 +328,18 @@ body::after {
    ========================================================================== */
 .studio-container {
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-columns: var(--sidebar-left-width) 1fr var(--sidebar-right-width);
   flex: 1;
   height: calc(100vh - 79px);
   position: relative;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+  .studio-container {
+    grid-template-columns: var(--sidebar-left-width) 1fr;
+  }
+}
+@media (max-width: 900px) {
   .studio-container {
     grid-template-columns: 1fr;
     height: auto;
@@ -343,21 +349,29 @@ body::after {
 /* ==========================================================================
    Sidebar Controls
    ========================================================================== */
-.control-sidebar {
+.panel-sidebar {
   background: var(--bg-surface);
   backdrop-filter: blur(12px);
-  border-right: 1px solid var(--border-color);
-  padding: 1.5rem;
+  padding: 1.25rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
-.control-sidebar::-webkit-scrollbar {
-  width: 6px;
+.left-panel {
+  border-right: 1px solid var(--border-color);
 }
-.control-sidebar::-webkit-scrollbar-thumb {
+
+.right-panel {
+  border-left: 1px solid var(--border-color);
+  background: rgba(10, 15, 30, 0.75); /* Slightly darker for properties */
+}
+
+.panel-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.panel-sidebar::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 4px;
 }
@@ -507,13 +521,13 @@ body::after {
 /* Presets Grid */
 .preset-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 0.6rem;
 }
 
 .color-preset-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 0.5rem;
 }
 
@@ -2214,4 +2228,18 @@ body.theme-light .ai-vibe-btn:hover {
   border-color: #0284c7;
 }
 
-
+/* ==========================================================================
+   Utility Classes (Tailwind-like)
+   ========================================================================== */
+.flex { display: flex !important; }
+.flex-col { flex-direction: column !important; }
+.items-center { align-items: center !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-center { justify-content: center !important; }
+.flex-1 { flex: 1 !important; }
+.flex-shrink-0 { flex-shrink: 0 !important; }
+.ml-1 { margin-left: 0.25rem !important; }
+.text-cyan-400 { color: #22d3ee !important; }
+.block { display: block !important; }
+.text-xs { font-size: 0.75rem !important; }
+.font-bold { font-weight: 700 !important; }

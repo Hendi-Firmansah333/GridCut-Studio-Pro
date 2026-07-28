@@ -186,8 +186,8 @@ export default function App() {
       />
 
       <main className="studio-container">
-        {/* Left Panel: Controls & Presets */}
-        <aside className="control-sidebar">
+        {/* Left Panel: Tools & Presets */}
+        <aside className="panel-sidebar left-panel">
           <DropZone
             sourceImage={sourceImage}
             filename={filename}
@@ -199,34 +199,9 @@ export default function App() {
             currentPreset={currentPreset}
             onSelectPreset={handleSelectPreset}
           />
-
-          <SplitControls
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
-
-          <ColorEffects
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
-
-          <WatermarkSettings
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
-
-          <ExportSettings
-            options={options}
-            onChangeOption={handleChangeOption}
-            hasImage={!!sourceImage}
-            isProcessing={isProcessing}
-            slicedCount={slicedTiles.length}
-            onCutNow={handleCutNow}
-            onDownloadZip={handleDownloadZip}
-          />
         </aside>
 
-        {/* Right Panel: Workspace Tabs & Viewport */}
+        {/* Center Panel: Workspace Tabs & Viewport */}
         <section className="studio-workspace">
           <nav className="workspace-tabs">
             <button
@@ -274,6 +249,31 @@ export default function App() {
             />
           )}
         </section>
+
+        {/* Right Panel: Properties & Export */}
+        <aside className="panel-sidebar right-panel">
+          <SplitControls
+            options={options}
+            onChangeOption={handleChangeOption}
+          />
+          <ColorEffects
+            options={options}
+            onChangeOption={handleChangeOption}
+          />
+          <WatermarkSettings
+            options={options}
+            onChangeOption={handleChangeOption}
+          />
+          <ExportSettings
+            options={options}
+            onChangeOption={handleChangeOption}
+            hasImage={!!sourceImage}
+            isProcessing={isProcessing}
+            slicedCount={slicedTiles.length}
+            onCutNow={handleCutNow}
+            onDownloadZip={handleDownloadZip}
+          />
+        </aside>
       </main>
 
       <PhotoboothModal
