@@ -1,67 +1,54 @@
 import React from 'react';
-import { Grid, HelpCircle, Sun, Moon, Camera, Settings, Layers } from 'lucide-react';
+import { Grid, HelpCircle, Sun, Moon, Camera, Layers } from 'lucide-react';
 
 export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth }) {
   return (
-    <header className="studio-header glass-surface shadow-sm" style={{ padding: '0.6rem 1.25rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-      <div className="header-brand" style={{ gap: '0.6rem' }}>
-        <div className="brand-logo" style={{ width: 32, height: 32, borderRadius: 8 }}>
+    <header className="h-16 flex items-center justify-between px-6 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shrink-0 sticky top-0 z-40">
+      <div className="flex items-center gap-4">
+        <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-md">
           <Grid size={18} />
         </div>
-        <div className="brand-info" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <h1 style={{ fontSize: '1.05rem', margin: 0 }}>GridCut <span style={{ fontWeight: 800 }}>Pro</span></h1>
-          <div style={{ padding: '0.15rem 0.5rem', background: 'rgba(255,255,255,0.1)', borderRadius: 12, fontSize: '0.65rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+        <div className="flex items-center gap-2">
+          <h1 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 font-display">GridCut <span className="text-sky-600 dark:text-sky-400">Pro</span></h1>
+          <span className="px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-500/20 text-[10px] font-bold text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/30">
             v2.0 Beta
-          </div>
+          </span>
         </div>
       </div>
 
-      <div className="header-actions" style={{ gap: '0.5rem' }}>
+      <div className="flex items-center gap-2">
         <button 
-          className="btn btn-sm btn-ghost"
-          style={{ fontSize: '0.8rem', padding: '0.3rem 0.6rem', color: 'var(--text-secondary)' }}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           title="File Settings"
         >
-          <Layers size={14} style={{ marginRight: '4px' }}/>
+          <Layers size={14} />
           <span>File</span>
         </button>
         
-        <div style={{ width: '1px', height: '16px', background: 'var(--border-color)', margin: '0 4px' }}></div>
+        <div className="w-px h-4 bg-zinc-200 dark:bg-zinc-800 mx-1"></div>
 
         <button 
-          className="btn btn-sm"
           onClick={onOpenPhotobooth}
-          style={{ 
-            background: 'linear-gradient(135deg, rgba(0,242,254,0.15), rgba(59,130,246,0.15))', 
-            color: 'var(--accent-cyan)', 
-            border: '1px solid rgba(0,242,254,0.3)', 
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '0.3rem 0.75rem',
-            fontSize: '0.8rem'
-          }}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-semibold bg-sky-50 text-sky-600 hover:bg-sky-100 dark:bg-sky-500/10 dark:text-sky-400 dark:hover:bg-sky-500/20 border border-sky-200 dark:border-sky-500/30 transition-colors"
           title="Buka Photobooth Premium"
         >
           <Camera size={14} />
-          <span style={{ fontWeight: 600 }}>Photobooth</span>
+          <span>Photobooth</span>
         </button>
 
         <button 
-          className="btn btn-sm btn-ghost"
           onClick={onOpenGuide}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           title="Panduan Urutan Upload IG"
-          style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem' }}
         >
-          <HelpCircle size={14} style={{ marginRight: '4px' }} />
+          <HelpCircle size={14} />
           <span>Panduan</span>
         </button>
 
         <button 
-          className="btn btn-icon-sm btn-ghost" 
           onClick={toggleTheme}
+          className="flex items-center justify-center w-8 h-8 rounded-md text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           title="Ubah Tema (Gelap / Terang)"
-          style={{ width: 28, height: 28 }}
         >
           {theme === 'theme-dark' ? <Sun size={14} /> : <Moon size={14} />}
         </button>

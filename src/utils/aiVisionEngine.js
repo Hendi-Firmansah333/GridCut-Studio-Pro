@@ -6,7 +6,7 @@ export async function analyzeImageContent(sourceImage, tiles = [], filename = ''
   // Default fallback info
   let result = {
     category: 'portrait',
-    categoryLabel: '✨ Aesthetic & Lifestyle Portrait',
+    categoryLabel: 'Aesthetic & Lifestyle Portrait',
     dominantColor: '#00f2fe',
     colorVibe: 'Cool & Crisp Neon',
     brightnessLabel: 'Balanced High-Def',
@@ -22,31 +22,31 @@ export async function analyzeImageContent(sourceImage, tiles = [], filename = ''
     const categories = [
       {
         id: 'academic',
-        label: '🎓 Sertifikat, Prestasi & Event Akademik',
+        label: 'Sertifikat, Prestasi & Event Akademik',
         keywords: ['sertifikat', 'certificate', 'piagam', 'akreditasi', 'anniversary', 'trpl', 'kampus', 'polinela', 'lampung', 'wisuda', 'kelulusan', 'penghargaan', 'lomba', 'juara', 'seminar', 'kuliah', 'dosen', 'mahasiswa'],
         tags: ['#Sertifikat', '#Prestasi', '#Apresiasi', '#Bangga', '#Mahasiswa', '#Polinela', '#CampusLife', '#Achievement', '#CareerGoals', '#GridCutStudioPro', '#HighDefGrid', '#Lampung']
       },
       {
         id: 'branding',
-        label: '🚀 Branding Bisnis, Promo & Launching Produk',
+        label: 'Branding Bisnis, Promo & Launching Produk',
         keywords: ['promo', 'diskon', 'sale', 'product', 'produk', 'grand', 'opening', 'banner', 'brand', 'katalog', 'menu', 'kuliner', 'bisnis', 'marketing', 'agency', 'toko', 'shop', 'kopi', 'cafe', 'poster'],
         tags: ['#BrandIdentity', '#DigitalMarketing', '#Promo', '#BusinessGrowth', '#ProductLaunch', '#CreativeAgency', '#InstagramGrid', '#VisualMarketing', '#GridCutStudioPro', '#BrandingDesign', '#ContentCreator']
       },
       {
         id: 'landscape',
-        label: '🌅 Landscape Alam, Panorama & Travel',
+        label: 'Landscape Alam, Panorama & Travel',
         keywords: ['landscape', 'panorama', 'travel', 'pantai', 'gunung', 'liburan', 'alam', 'sunset', 'sunrise', 'vacation', 'sea', 'nature', 'sky', 'trip', 'adventure', 'scenic'],
         tags: ['#TravelPhotography', '#Panorama', '#NatureLovers', '#Wanderlust', '#SunsetGlow', '#GoldenHour', '#ExploreMore', '#SeamlessCarousel', '#GridCutStudioPro', '#ScenicView', '#Outdoor']
       },
       {
         id: 'cyberpunk',
-        label: '⚡ Tech, Gaming & Cyberpunk Visuals',
+        label: 'Tech, Gaming & Cyberpunk Visuals',
         keywords: ['cyber', 'cyberpunk', 'neon', 'tech', 'setup', 'pc', 'gaming', 'gamer', 'ai', 'digital', 'futuristic', 'led', 'code', 'coding', 'studio'],
         tags: ['#Cyberpunk', '#NeonAesthetic', '#TechSetup', '#DigitalArt', '#Futuristic', '#GamingCommunity', '#GridCutStudioPro', '#VisualEffects', '#Synthwave', '#TechLife']
       },
       {
         id: 'portrait',
-        label: '🌸 Aesthetic Portrait & Lifestyle',
+        label: 'Aesthetic Portrait & Lifestyle',
         keywords: ['portrait', 'selfie', 'model', 'ootd', 'fashion', 'style', 'photo', 'girl', 'boy', 'photoshoot', 'lifestyle', 'mood'],
         tags: ['#PortraitPhotography', '#AestheticFeed', '#OOTD', '#PhotoOfTheDay', '#CreativeLayout', '#VisualArt', '#SuperHD', '#InstaDaily', '#GridCutStudioPro', '#Lifestyle']
       }
@@ -122,31 +122,31 @@ export async function analyzeImageContent(sourceImage, tiles = [], filename = ''
       // Brightness level
       const luminance = 0.299 * avgR + 0.587 * avgG + 0.114 * avgB;
       if (luminance > 180) {
-        result.brightnessLabel = '☀️ High-Key Clean (Cerah & Jelas)';
+        result.brightnessLabel = 'High-Key Clean (Cerah & Jelas)';
       } else if (luminance > 90) {
-        result.brightnessLabel = '⚖️ Balanced High-Def (Kontras Harmonis)';
+        result.brightnessLabel = 'Balanced High-Def (Kontras Harmonis)';
       } else {
-        result.brightnessLabel = '🌙 Low-Key Moody (Elegan & Dramatis)';
+        result.brightnessLabel = 'Low-Key Moody (Elegan & Dramatis)';
       }
 
       // Color Vibe classification
       if (avgR > avgG + 30 && avgR > avgB + 30) {
-        result.colorVibe = '🔥 Warm Sunset / Rich Red & Orange';
+        result.colorVibe = 'Warm Sunset / Rich Red & Orange';
         if (!result.detectedKeywords.includes('Warm Sunset')) result.detectedKeywords.push('Warm Golden Vibe');
       } else if (avgG > avgR + 20 && avgG > avgB + 20) {
-        result.colorVibe = '🌿 Natural Emerald / Lush Greenery';
+        result.colorVibe = 'Natural Emerald / Lush Greenery';
         if (!result.detectedKeywords.includes('Natural Green')) result.detectedKeywords.push('Fresh Nature');
       } else if (avgB > avgR + 20 && avgB > avgG + 20) {
-        result.colorVibe = '🌊 Deep Navy / Cyan Tech Vibe';
+        result.colorVibe = 'Deep Navy / Cyan Tech Vibe';
         if (!result.detectedKeywords.includes('Deep Blue')) result.detectedKeywords.push('Cool Corporate Blue');
       } else if (avgR > 180 && avgG > 180 && avgB > 180) {
-        result.colorVibe = '✨ Clean Minimalist White & Bright';
+        result.colorVibe = 'Clean Minimalist White & Bright';
         if (!result.detectedKeywords.includes('Minimalist')) result.detectedKeywords.push('Minimalist White');
       } else if (avgR < 70 && avgG < 70 && avgB < 70) {
-        result.colorVibe = '🖤 Sleek Moody Dark / Obsidian';
+        result.colorVibe = 'Sleek Moody Dark / Obsidian';
         if (!result.detectedKeywords.includes('Moody Dark')) result.detectedKeywords.push('Sleek Obsidian');
       } else {
-        result.colorVibe = '🎨 Harmonious Multi-Palette';
+        result.colorVibe = 'Harmonious Multi-Palette';
       }
 
       // Add category specific keyword if not present
@@ -183,67 +183,67 @@ export function generateSmartCaption({
   if (language === 'id') {
     if (mood === 'aesthetic') {
       if (category === 'academic') {
-        introText = `✨ Apresiasi & Pencapaian Membanggakan${handle}`;
-        bodyText = `Setiap pencapaian adalah bukti dari dedikasi dan proses yang luar biasa. Dipotong menjadi ${tilesCount} bagian beresolusi Super HD agar setiap detail sertifikat dan momen berharga ini tampil sempurna.\n\n👉 Geser setiap slide sampai akhir atau kunjungi profil feed kami untuk melihat susunan visual utuhnya!`;
+        introText = `Apresiasi & Pencapaian Membanggakan${handle}`;
+        bodyText = `Setiap pencapaian adalah bukti dari dedikasi dan proses yang luar biasa. Dipotong menjadi ${tilesCount} bagian beresolusi Super HD agar setiap detail sertifikat dan momen berharga ini tampil sempurna.\n\nGeser setiap slide sampai akhir atau kunjungi profil feed kami untuk melihat susunan visual utuhnya!`;
       } else if (category === 'branding') {
-        introText = `🌟 Visual Etalase Brand & Kualitas Terbaik${handle}`;
-        bodyText = `Menghadirkan pesona visual yang terstruktur dalam ${tilesCount} potongan feed beresolusi tinggi. Eksplorasi setiap sudut produk dan layanan kami yang didesain untuk kenyamanan dan estetika mata.\n\n👉 Swipe atau cek profil utama kami untuk menikmati layout grid yang menyatu!`;
+        introText = `Visual Etalase Brand & Kualitas Terbaik${handle}`;
+        bodyText = `Menghadirkan pesona visual yang terstruktur dalam ${tilesCount} potongan feed beresolusi tinggi. Eksplorasi setiap sudut produk dan layanan kami yang didesain untuk kenyamanan dan estetika mata.\n\nSwipe atau cek profil utama kami untuk menikmati layout grid yang menyatu!`;
       } else if (category === 'landscape') {
-        introText = `🌅 Eksplorasi Cakrawala & Pesona Alam${handle}`;
-        bodyText = `Menangkap keindahan bentang alam dengan nuansa warna ${colorVibe.split('/')[0].trim()} dalam ${tilesCount} panorama berkesinambungan (seamless carousel). Nikmati ketajaman detail High Definition di setiap geserannya.\n\n👉 Swipe right untuk menelusuri pemandangan lengkapnya!`;
+        introText = `Eksplorasi Cakrawala & Pesona Alam${handle}`;
+        bodyText = `Menangkap keindahan bentang alam dengan nuansa warna ${colorVibe.split('/')[0].trim()} dalam ${tilesCount} panorama berkesinambungan (seamless carousel). Nikmati ketajaman detail High Definition di setiap geserannya.\n\nSwipe right untuk menelusuri pemandangan lengkapnya!`;
       } else {
-        introText = `✨ Estetika Visual & Harmoni Grid Feed${handle}`;
-        bodyText = `Kombinasi warna ${colorVibe.split('/')[0].trim()} yang dikemas dalam ${tilesCount} potongan resolusi Super HD. Dibuat presisi agar profil Instagram tampil lebih rapi, elegan, dan artistik.\n\n👉 Geser atau kunjungi profil kami untuk melihat gambaran besarnya bersatu!`;
+        introText = `Estetika Visual & Harmoni Grid Feed${handle}`;
+        bodyText = `Kombinasi warna ${colorVibe.split('/')[0].trim()} yang dikemas dalam ${tilesCount} potongan resolusi Super HD. Dibuat presisi agar profil Instagram tampil lebih rapi, elegan, dan artistik.\n\nGeser atau kunjungi profil kami untuk melihat gambaran besarnya bersatu!`;
       }
     } else if (mood === 'brand') {
-      introText = `💼 Profesional Visual & Executive Presence${handle}`;
+      introText = `Profesional Visual & Executive Presence${handle}`;
       if (category === 'academic') {
         bodyText = `Secara resmi mempersembahkan pencapaian dan apresiasi berharga dalam tampilan ${tilesCount}-Tile Grid eksklusif. Komitmen terhadap standar kualitas dan inovasi berkelanjutan yang tercermin di setiap detailnya.\n\nKunjungi profil Instagram kami untuk melihat keseluruhan grid secara utuh.`;
       } else {
         bodyText = `Menampilkan identitas visual yang solid dan elegan terbagi dalam ${tilesCount} bagian resolusi tinggi. Dirancang khusus untuk memberikan pengalaman visual profesional bagi setiap audiens.\n\nJelajahi profil utama kami untuk menikmati susunan seamless feed.`;
       }
     } else if (mood === 'hype') {
-      introText = `🔥 ABSOLUTE BANGER & MUST-SEE GRID! 🔥${handle}`;
-      bodyText = `Jangan lewatkan satu slide pun! Potongan ${tilesCount} foto beresolusi Super HD ini punya vibe ${colorVibe.split('/')[0].trim()} yang super elegan dan beda dari yang lain.\n\n⚡ Langsung cek main feed kita sekarang biar liat hasil gabungan besarnya yang gokil abis!`;
+      introText = `ABSOLUTE BANGER & MUST-SEE GRID!${handle}`;
+      bodyText = `Jangan lewatkan satu slide pun! Potongan ${tilesCount} foto beresolusi Super HD ini punya vibe ${colorVibe.split('/')[0].trim()} yang super elegan dan beda dari yang lain.\n\nLangsung cek main feed kita sekarang biar liat hasil gabungan besarnya yang gokil abis!`;
     } else if (mood === 'story') {
-      introText = `📖 Di Balik Karya & Cerita Visual${handle}`;
+      introText = `Di Balik Karya & Cerita Visual${handle}`;
       if (category === 'academic') {
-        bodyText = `Bukan sekadar lembaran sertifikat atau piagam, melainkan rekam jejak perjuangan, ilmu yang didapat, serta kolaborasi yang berharga. Terbagi dalam ${tilesCount} potongan agar setiap makna dapat dinikmati dengan lebih dekat.\n\nTerima kasih kepada semua yang telah mendukung perjalanan ini. Mari terus melangkah ke pencapaian berikutnya! ✨`;
+        bodyText = `Bukan sekadar lembaran sertifikat atau piagam, melainkan rekam jejak perjuangan, ilmu yang didapat, serta kolaborasi yang berharga. Terbagi dalam ${tilesCount} potongan agar setiap makna dapat dinikmati dengan lebih dekat.\n\nTerima kasih kepada semua yang telah mendukung perjalanan ini. Mari terus melangkah ke pencapaian berikutnya!`;
       } else {
         bodyText = `Setiap foto memiliki kisahnya sendiri. Kami membagi momen spesial ini menjadi ${tilesCount} bagian yang saling melengkapi, menghadirkan sudut pandang baru dengan kualitas warna terbaik.\n\nNikmati alur ceritanya dari slide pertama hingga akhir.`;
       }
     } else {
       // minimal
-      introText = `Bigger picture. Better quality.${handle} ⚡`;
+      introText = `Bigger picture. Better quality.${handle}`;
       bodyText = `${tilesCount} Parts • Super HD Resolution (${colorVibe.split('/')[0].trim()}).\nCek profil feed untuk susunan lengkapnya.`;
     }
   } else {
     // English
     if (mood === 'aesthetic') {
       if (category === 'academic') {
-        introText = `✨ Honoring Dedication & Milestones${handle}`;
-        bodyText = `Every achievement represents countless hours of passion and commitment. Sliced into ${tilesCount} crisp Super HD parts so every single detail of this milestone shines bright on our Instagram grid.\n\n👉 Swipe through or visit our main profile to view the complete unified display!`;
+        introText = `Honoring Dedication & Milestones${handle}`;
+        bodyText = `Every achievement represents countless hours of passion and commitment. Sliced into ${tilesCount} crisp Super HD parts so every single detail of this milestone shines bright on our Instagram grid.\n\nSwipe through or visit our main profile to view the complete unified display!`;
       } else if (category === 'branding') {
-        introText = `🌟 Premium Brand Showcase & Visual Appeal${handle}`;
-        bodyText = `Presenting our latest visual series in ${tilesCount} high-definition pieces. Engineered with ${colorVibe.split('/')[0].trim()} aesthetics to elevate your brand experience.\n\n👉 Swipe or explore our profile grid for the seamless overview!`;
+        introText = `Premium Brand Showcase & Visual Appeal${handle}`;
+        bodyText = `Presenting our latest visual series in ${tilesCount} high-definition pieces. Engineered with ${colorVibe.split('/')[0].trim()} aesthetics to elevate your brand experience.\n\nSwipe or explore our profile grid for the seamless overview!`;
       } else if (category === 'landscape') {
-        introText = `🌅 Horizon Chronicles & Seamless Panorama${handle}`;
-        bodyText = `Capturing the breathtaking expanse in ${tilesCount} continuous high-res tiles. Immerse yourself in the ${colorVibe.split('/')[0].trim()} atmosphere across every single swipe.\n\n👉 Swipe right to travel through the scene!`;
+        introText = `Horizon Chronicles & Seamless Panorama${handle}`;
+        bodyText = `Capturing the breathtaking expanse in ${tilesCount} continuous high-res tiles. Immerse yourself in the ${colorVibe.split('/')[0].trim()} atmosphere across every single swipe.\n\nSwipe right to travel through the scene!`;
       } else {
-        introText = `✨ Seamless Grid & Visual Harmony${handle}`;
-        bodyText = `Slide through the pieces of this ${tilesCount}-tile high-definition visual moment. Crafted specifically to maintain a clean, modern, and aesthetic profile grid.\n\n👉 Visit our main feed to see the full picture come to life!`;
+        introText = `Seamless Grid & Visual Harmony${handle}`;
+        bodyText = `Slide through the pieces of this ${tilesCount}-tile high-definition visual moment. Crafted specifically to maintain a clean, modern, and aesthetic profile grid.\n\nVisit our main feed to see the full picture come to life!`;
       }
     } else if (mood === 'brand') {
-      introText = `💼 Executive Excellence & Professional Grid${handle}`;
+      introText = `Executive Excellence & Professional Grid${handle}`;
       bodyText = `Announcing our latest showcase delivered in ${tilesCount} precision-sliced HD posts. Highlighting the intersection of quality, detail, and visual identity.\n\nVisit our official profile to experience the complete synchronized grid layout.`;
     } else if (mood === 'hype') {
-      introText = `🔥 ABSOLUTE NEXT-LEVEL GRID CAROUSEL 🔥${handle}`;
-      bodyText = `Every piece of this ${tilesCount}-photo grid hits different in Super HD! ${colorVibe.split('/')[0].trim()} vibes all the way.\n\n⚡ Check our main feed right now to see the full bigger picture come together!`;
+      introText = `ABSOLUTE NEXT-LEVEL GRID CAROUSEL${handle}`;
+      bodyText = `Every piece of this ${tilesCount}-photo grid hits different in Super HD! ${colorVibe.split('/')[0].trim()} vibes all the way.\n\nCheck our main feed right now to see the full bigger picture come together!`;
     } else if (mood === 'story') {
-      introText = `📖 Behind the Visual Journey${handle}`;
-      bodyText = `Behind every frame lies a story worth telling. We've divided this moment into ${tilesCount} interconnected chapters, inviting you to appreciate the details up close before seeing the grand picture on our feed.\n\nThank you for being part of this journey. ✨`;
+      introText = `Behind the Visual Journey${handle}`;
+      bodyText = `Behind every frame lies a story worth telling. We've divided this moment into ${tilesCount} interconnected chapters, inviting you to appreciate the details up close before seeing the grand picture on our feed.\n\nThank you for being part of this journey.`;
     } else {
-      introText = `Bigger picture. Better quality.${handle} ⚡`;
+      introText = `Bigger picture. Better quality.${handle}`;
       bodyText = `${tilesCount} Parts • Super HD Upscaled Grid.\nCheck our profile feed for the full view.`;
     }
   }
@@ -251,7 +251,7 @@ export function generateSmartCaption({
   // Inject Custom Prompt additions if provided
   let customSection = '';
   if (customPrompt && customPrompt.trim() !== '') {
-    customSection = `\n\n📌 Note / Highlight: ${customPrompt.trim()}`;
+    customSection = `\n\nNote / Highlight: ${customPrompt.trim()}`;
   }
 
   return `${introText}\n\n${bodyText}${customSection}\n.\n.\n.\n${tagsStr}`;

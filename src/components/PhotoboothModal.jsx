@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { X, Camera, RefreshCw, Sparkles, Film, Grid, Image as ImageIcon, Download, Palette, Type, Scan, LayoutPanelLeft, Heart, Star, Flower2, Gem, StickyNote, Leaf, HeartHandshake } from 'lucide-react';
-import './PhotoboothModal.css';
 
 const LAYOUTS = [
   { id: 'single', label: 'Single', shots: 1, icon: ImageIcon },
@@ -547,140 +546,160 @@ export default function PhotoboothModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="pb-overlay">
-      <div className="pb-modal">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+      <div className="flex flex-col bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-2xl w-full max-w-5xl h-[90vh] max-h-[850px] animate-in zoom-in-95 duration-300 m-4">
         
-        <div className="pb-header">
-          <h2 className="pb-title">
-            <Camera /> Photobooth Premium (Standalone)
+        <div className="flex items-center justify-between px-6 py-4 bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+          <h2 className="flex items-center gap-2 text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            <Camera className="text-sky-500" /> Photobooth Premium (Standalone)
           </h2>
-          <button onClick={onClose} className="pb-close-btn" disabled={isShooting}>
+          <button 
+            onClick={onClose} 
+            disabled={isShooting}
+            className="p-2 rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             <X size={20} />
           </button>
         </div>
 
-        <div className="pb-content">
-          <div className="pb-camera-container">
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+          <div className="flex-1 relative bg-black flex items-center justify-center overflow-hidden min-h-[300px]">
             {finalResult ? (
-              <img src={finalResult} alt="Hasil Kolase Photobooth" className="pb-result-img" />
+              <img src={finalResult} alt="Hasil Kolase Photobooth" className="max-w-full max-h-full object-contain shadow-2xl animate-in zoom-in-95 duration-500" />
             ) : (
               <video 
                 ref={videoRef} 
                 autoPlay 
                 playsInline 
                 muted 
-                className={`pb-video pb-filter-${selectedFilter}`}
-                style={{ transform: 'scaleX(-1)' }} 
+                className="w-full h-full object-cover"
+                style={{ 
+                  transform: 'scaleX(-1)', 
+                  filter: getCanvasFilter(selectedFilter)
+                }} 
               />
             )}
 
             {!hasPermission && !finalResult && !isShooting && (
-              <div className="pb-permission-msg">
-                <Camera size={48} />
-                <h3>Akses Kamera Diperlukan</h3>
-                <p>Mohon izinkan akses kamera di browser Anda untuk menggunakan Photobooth.</p>
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-black/80 text-white backdrop-blur-md z-20">
+                <Camera size={48} className="mb-4 text-sky-500 animate-pulse" />
+                <h3 className="text-xl font-bold mb-2">Akses Kamera Diperlukan</h3>
+                <p className="text-zinc-400">Mohon izinkan akses kamera di browser Anda untuk menggunakan Photobooth.</p>
               </div>
             )}
 
             {countdown !== null && (
-              <div className="pb-countdown-overlay">
-                <span className="pb-countdown-text">
+              <div className="absolute inset-0 flex items-center justify-center z-30">
+                <span className="text-9xl font-black text-white drop-shadow-[0_0_20px_rgba(0,0,0,0.5)] animate-in zoom-in duration-300">
                   {countdown}
                 </span>
               </div>
             )}
             
-            <div className={`pb-flash-overlay ${isFlashing ? 'pb-flash-active' : ''}`} />
+            <div className={`absolute inset-0 bg-white z-40 pointer-events-none transition-opacity duration-100 ${isFlashing ? 'opacity-100' : 'opacity-0'}`} />
             
-            <canvas ref={canvasRef} style={{ display: 'none' }} />
+            <canvas ref={canvasRef} className="hidden" />
           </div>
 
-          <div className="pb-sidebar">
+          <div className="w-full md:w-[340px] flex flex-col bg-white dark:bg-zinc-950 border-l border-zinc-200 dark:border-zinc-800 overflow-y-auto">
             {!finalResult ? (
               <>
-                <div className="pb-tabs">
-                  <button className="pb-tab-btn active">Pengaturan Sesi</button>
+                <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50">
+                  <div className="inline-flex rounded-lg bg-zinc-200/50 dark:bg-zinc-800/50 p-1 w-full">
+                    <button className="flex-1 py-1.5 px-3 rounded-md bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 text-sm font-semibold shadow-sm">Pengaturan Sesi</button>
+                  </div>
                 </div>
                 
-                <h3 className="pb-sidebar-title"><LayoutPanelLeft size={16} /> Tata Letak (Layout)</h3>
-                <div className="pb-options-grid">
-                  {LAYOUTS.map(layout => (
-                    <button
-                      key={layout.id}
-                      onClick={() => setSelectedLayout(layout.id)}
-                      disabled={isShooting}
-                      className={`pb-frame-btn ${selectedLayout === layout.id ? 'active' : ''}`}
-                    >
-                      <layout.icon size={20} />
-                      <span>{layout.label}</span>
-                    </button>
-                  ))}
+                <div className="p-5 flex flex-col gap-6 custom-scrollbar">
+                  <div>
+                    <h3 className="flex items-center gap-2 text-sm font-bold text-zinc-700 dark:text-zinc-300 mb-3"><LayoutPanelLeft size={16} className="text-sky-500" /> Tata Letak (Layout)</h3>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {LAYOUTS.map(layout => (
+                        <button
+                          key={layout.id}
+                          onClick={() => setSelectedLayout(layout.id)}
+                          disabled={isShooting}
+                          className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-xs font-semibold border transition-all ${selectedLayout === layout.id ? 'bg-zinc-900 border-zinc-900 text-white dark:bg-sky-600 dark:border-sky-600 shadow-md' : 'bg-white border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:bg-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800'}`}
+                        >
+                          <layout.icon size={16} className={selectedLayout === layout.id ? 'text-current' : 'text-zinc-400 dark:text-zinc-500'} />
+                          <span>{layout.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="flex items-center gap-2 text-sm font-bold text-zinc-700 dark:text-zinc-300 mb-3"><Scan size={16} className="text-sky-500" /> Filter Lensa</h3>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {FILTERS.map(filter => (
+                        <button
+                          key={filter.id}
+                          onClick={() => setSelectedFilter(filter.id)}
+                          disabled={isShooting}
+                          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition-all ${selectedFilter === filter.id ? 'bg-sky-50 border-sky-200 text-sky-700 dark:bg-sky-500/10 dark:border-sky-500/30 dark:text-sky-400 font-bold shadow-sm' : 'bg-transparent border-transparent text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'}`}
+                        >
+                          <filter.icon size={14} className={selectedFilter === filter.id ? 'text-sky-500' : 'text-zinc-400'} />
+                          <span>{filter.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="flex items-center gap-2 text-sm font-bold text-zinc-700 dark:text-zinc-300 mb-3"><Palette size={16} className="text-sky-500" /> Desain Bingkai Kertas</h3>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {FRAME_DESIGNS.map(frame => (
+                        <button
+                          key={frame.id}
+                          onClick={() => setSelectedFrame(frame.id)}
+                          disabled={isShooting}
+                          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[11px] font-medium border transition-all ${selectedFrame === frame.id ? 'bg-indigo-50 border-indigo-200 text-indigo-700 dark:bg-indigo-500/10 dark:border-indigo-500/30 dark:text-indigo-400 font-bold shadow-sm' : 'bg-transparent border-transparent text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'}`}
+                        >
+                          <frame.icon size={14} className={selectedFrame === frame.id ? 'text-indigo-500' : 'text-zinc-400'} />
+                          <span className="truncate">{frame.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <h3 className="pb-sidebar-title"><Scan size={16} /> Filter Lensa</h3>
-                <div className="pb-options-grid">
-                  {FILTERS.map(filter => (
-                    <button
-                      key={filter.id}
-                      onClick={() => setSelectedFilter(filter.id)}
-                      disabled={isShooting}
-                      className={`pb-frame-btn ${selectedFilter === filter.id ? 'active' : ''}`}
-                    >
-                      <filter.icon size={20} />
-                      <span>{filter.label}</span>
-                    </button>
-                  ))}
-                </div>
-
-                <h3 className="pb-sidebar-title"><Palette size={16} /> Desain Bingkai Kertas</h3>
-                <div className="pb-options-grid" style={{ marginBottom: '2rem' }}>
-                  {FRAME_DESIGNS.map(frame => (
-                    <button
-                      key={frame.id}
-                      onClick={() => setSelectedFrame(frame.id)}
-                      disabled={isShooting}
-                      className={`pb-frame-btn ${selectedFrame === frame.id ? 'active' : ''}`}
-                    >
-                      <frame.icon size={20} />
-                      <span>{frame.label}</span>
-                    </button>
-                  ))}
-                </div>
-
-                <div className="pb-capture-wrapper">
+                <div className="p-5 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 mt-auto">
                   <button 
                     onClick={startSession}
                     disabled={!hasPermission || isShooting}
-                    className="pb-capture-btn"
+                    className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-white bg-zinc-900 hover:bg-zinc-800 dark:bg-sky-600 dark:hover:bg-sky-500 transition-colors shadow-lg shadow-zinc-900/20 dark:shadow-sky-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Camera size={24} />
+                    <Camera size={20} className={isShooting ? 'animate-pulse' : ''} />
                     <span>{isShooting ? 'Sedang Memotret...' : 'Mulai Sesi Photobooth'}</span>
                   </button>
                 </div>
               </>
             ) : (
-              <div className="pb-result-actions">
-                <div className="pb-success-icon">
+              <div className="flex flex-col items-center justify-center h-full p-8 text-center animate-in zoom-in-95 duration-500">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6 shadow-inner relative">
+                  <div className="absolute inset-0 rounded-full border border-emerald-200 dark:border-emerald-500/30 animate-pulse"></div>
                   <Download size={32} />
                 </div>
-                <h3>Sesi Selesai!</h3>
-                <p>Kolase foto Anda berhasil dibuat.</p>
+                <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Sesi Selesai!</h3>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-8">Kolase foto Anda berhasil dibuat dan siap disimpan.</p>
                 
-                <button 
-                  onClick={handleDownload}
-                  className="pb-action-btn pb-btn-success"
-                >
-                  <Download size={20} />
-                  <span>Simpan & Download</span>
-                </button>
-                
-                <button 
-                  onClick={handleRetake}
-                  className="pb-action-btn pb-btn-secondary"
-                >
-                  <RefreshCw size={20} />
-                  <span>Mulai Sesi Baru</span>
-                </button>
+                <div className="w-full flex flex-col gap-3">
+                  <button 
+                    onClick={handleDownload}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-500/20"
+                  >
+                    <Download size={20} />
+                    <span>Simpan & Download</span>
+                  </button>
+                  
+                  <button 
+                    onClick={handleRetake}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors shadow-sm"
+                  >
+                    <RefreshCw size={20} />
+                    <span>Mulai Sesi Baru</span>
+                  </button>
+                </div>
               </div>
             )}
           </div>

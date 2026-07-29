@@ -158,75 +158,75 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
   };
 
   return (
-    <section className="control-card glass-card card-animated" style={{ '--anim-order': 1 }}>
-      <div className="card-header">
-        <div className="header-icon-pulse">
-          <ImageIcon size={18} style={{ color: '#00f2fe' }} />
+    <section className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="flex items-center gap-2.5 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800/50 bg-zinc-50/50 dark:bg-zinc-900/50">
+        <div className="flex items-center justify-center w-6 h-6 rounded bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400">
+          <ImageIcon size={14} />
         </div>
-        <h2>Upload & Pilih Gambar</h2>
+        <h2 className="font-semibold text-sm text-zinc-800 dark:text-zinc-200">Upload & Pilih Gambar</h2>
       </div>
 
-      <input 
-        type="file" 
-        ref={fileInputRef} 
-        onChange={handleFileChange} 
-        accept="image/*" 
-        hidden 
-      />
+      <div className="p-4">
+        <input 
+          type="file" 
+          ref={fileInputRef} 
+          onChange={handleFileChange} 
+          accept="image/*" 
+          hidden 
+        />
 
-      {!sourceImage ? (
-        <div 
-          className={`drop-zone glass-drop animated-drop ${isDragging ? 'dragging' : ''}`}
-          onClick={() => fileInputRef.current?.click()}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
-          <div className="drop-zone-content">
-            <div className="drop-icon-wrapper floating-anim">
-              <UploadCloud size={26} />
-            </div>
-            <p className="drop-title">Drop & Paste foto di sini</p>
-            <p className="drop-subtitle">Atau klik untuk pilih dari perangkat (PNG, JPG, WebP)</p>
-            <span className="btn btn-sm btn-primary mt-3 shadow-glow animated-btn w-full max-w-[240px] block text-center mx-auto">Pilih Foto Sekarang</span>
-          </div>
-        </div>
-      ) : (
-        <div className="image-info-card glass-surface scale-in-anim">
-          <div className="info-preview">
-            <img src={sourceImage.src} alt="Active Preview" />
-          </div>
-          <div className="info-details">
-            <p className="font-semibold truncate" title={filename}>{filename}</p>
-            <p className="text-xs text-muted">
-              {sourceImage.naturalWidth || sourceImage.width} × {sourceImage.naturalHeight || sourceImage.height} px
-            </p>
-          </div>
-          <button 
-            className="btn btn-icon-sm btn-danger-ghost hover-rotate-anim" 
-            onClick={onRemoveImage}
-            title="Hapus Gambar"
+        {!sourceImage ? (
+          <div 
+            className={`border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors group ${isDragging ? 'border-sky-500 bg-sky-50 dark:bg-sky-500/10' : 'border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:border-sky-400 dark:hover:border-sky-500'}`}
+            onClick={() => fileInputRef.current?.click()}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
           >
-            <Trash2 size={16} />
-          </button>
-        </div>
-      )}
+            <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-500 group-hover:text-sky-500 dark:group-hover:text-sky-400 mb-3 transition-colors">
+              <UploadCloud size={20} />
+            </div>
+            <p className="font-medium text-zinc-900 dark:text-zinc-100 text-sm mb-1">Drop & Paste foto di sini</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">Atau klik untuk pilih dari perangkat (PNG, JPG, WebP)</p>
+            <span className="mt-4 inline-flex items-center justify-center px-4 py-2 rounded-md bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-sm font-medium hover:bg-zinc-800 dark:hover:bg-white transition-colors w-full max-w-[200px]">Pilih Foto Sekarang</span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3 p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50">
+            <div className="w-12 h-12 rounded overflow-hidden flex-shrink-0 bg-zinc-200 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700">
+              <img src={sourceImage.src} alt="Active Preview" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate" title={filename}>{filename}</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                {sourceImage.naturalWidth || sourceImage.width} × {sourceImage.naturalHeight || sourceImage.height} px
+              </p>
+            </div>
+            <button 
+              className="p-1.5 rounded-md text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors" 
+              onClick={onRemoveImage}
+              title="Hapus Gambar"
+            >
+              <Trash2 size={16} />
+            </button>
+          </div>
+        )}
 
-      <div className="sample-section divider-top">
-        <span className="sample-label">Atau coba dengan gambar sampel:</span>
-        <div className="sample-grid">
-          <button className="sample-btn animated-sample-btn" onClick={() => generateSample('landscape')} title="Panorama 3:1 Sunset">
-            <Sparkles size={13} className="sample-icon" style={{ color: '#f59e0b' }} />
-            <span>Landscape</span>
-          </button>
-          <button className="sample-btn animated-sample-btn" onClick={() => generateSample('portrait')} title="Portrait IG 4:5 Grid">
-            <ImagePlus size={13} className="sample-icon" style={{ color: '#10b981' }} />
-            <span>IG Portrait</span>
-          </button>
-          <button className="sample-btn animated-sample-btn" onClick={() => generateSample('cyberpunk')} title="Cyberpunk Neon Grid">
-            <Sparkles size={13} className="sample-icon" style={{ color: '#00f2fe' }} />
-            <span>Neon Grid</span>
-          </button>
+        <div className="mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+          <span className="block text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-3">Atau coba dengan gambar sampel:</span>
+          <div className="grid grid-cols-3 gap-2">
+            <button className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors" onClick={() => generateSample('landscape')} title="Panorama 3:1 Sunset">
+              <Sparkles size={14} className="text-amber-500" />
+              <span>Landscape</span>
+            </button>
+            <button className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors" onClick={() => generateSample('portrait')} title="Portrait IG 4:5 Grid">
+              <ImagePlus size={14} className="text-emerald-500" />
+              <span>IG Portrait</span>
+            </button>
+            <button className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors" onClick={() => generateSample('cyberpunk')} title="Cyberpunk Neon Grid">
+              <Sparkles size={14} className="text-sky-500" />
+              <span>Neon Grid</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>

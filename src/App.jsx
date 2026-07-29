@@ -109,7 +109,7 @@ export default function App() {
     } else if (sampleType === 'portrait' || sampleType === 'cyberpunk') {
       handleSelectPreset('ig-grid-3x3');
     }
-    showToast(`📸 Gambar berhasil dimuat: ${name}`, 'success');
+    showToast(`Gambar berhasil dimuat: ${name}`, 'success');
   };
 
   const handleRemoveImage = () => {
@@ -123,7 +123,7 @@ export default function App() {
   // Cut Action
   const handleCutNow = async () => {
     if (!sourceImage) {
-      showToast('⚠️ Silakan pilih/upload atau gunakan gambar sampel terlebih dahulu!', 'warning');
+      showToast('Silakan pilih/upload atau gunakan gambar sampel terlebih dahulu!', 'warning');
       return;
     }
 
@@ -132,7 +132,7 @@ export default function App() {
       const results = await sliceTiles(sourceImage, options);
       setSlicedTiles(results);
       setActiveTab('gallery');
-      showToast(`✂️ Berhasil memotong gambar menjadi ${results.length} bagian!`, 'success');
+      showToast(`Berhasil memotong gambar menjadi ${results.length} bagian!`, 'success');
     } catch (error) {
       console.error('Error slicing image:', error);
       showToast('Gagal memproses potongan gambar.', 'danger');
@@ -150,9 +150,9 @@ export default function App() {
 
   const handleCopyTile = async (tile) => {
     if (await copyTileToClipboard(tile)) {
-      showToast(`✨ Foto (${tile.width}×${tile.height}px) tersalin ke Clipboard!`, 'success');
+      showToast(`Foto (${tile.width}×${tile.height}px) tersalin ke Clipboard!`, 'success');
     } else {
-      showToast('⚠️ Gagal menyalin foto. Pastikan browser mendukung ClipboardItem.', 'warning');
+      showToast('Gagal menyalin foto. Pastikan browser mendukung ClipboardItem.', 'warning');
     }
   };
 
@@ -160,7 +160,7 @@ export default function App() {
     if (slicedTiles.length === 0) return;
     const success = await downloadAllZip(slicedTiles, options, (msg) => showToast(msg, 'info'));
     if (success) {
-      showToast(`📦 Berhasil men-download ${slicedTiles.length} foto dalam format ZIP!`, 'success');
+      showToast(`Berhasil men-download ${slicedTiles.length} foto dalam format ZIP!`, 'success');
     } else {
       showToast('Gagal membuat file ZIP.', 'danger');
     }
@@ -170,7 +170,7 @@ export default function App() {
     if (slicedTiles.length === 0) return;
     const success = await downloadFeedMockupSheet(slicedTiles, options, (msg) => showToast(msg, 'info'));
     if (success) {
-      showToast('📱 Berhasil men-download Mockup Sheet Feed Instagram!', 'success');
+      showToast('Berhasil men-download Mockup Sheet Feed Instagram!', 'success');
     } else {
       showToast('Gagal membuat Mockup Sheet.', 'danger');
     }
@@ -185,9 +185,9 @@ export default function App() {
         onOpenPhotobooth={() => setIsPhotoboothOpen(true)}
       />
 
-      <main className="studio-container">
+      <main className="flex flex-col lg:flex-row h-[calc(100vh-4rem)] bg-white dark:bg-zinc-950 overflow-hidden">
         {/* Left Panel: Tools & Controls */}
-        <aside className="control-sidebar">
+        <aside className="w-full lg:w-80 xl:w-96 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-900/50 overflow-y-auto flex flex-col gap-6 p-5">
           <DropZone
             sourceImage={sourceImage}
             filename={filename}
@@ -227,10 +227,10 @@ export default function App() {
         </aside>
 
         {/* Center Panel: Workspace Tabs & Viewport */}
-        <section className="studio-workspace">
-          <nav className="workspace-tabs">
+        <section className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-black/20">
+          <nav className="flex items-center px-6 pt-4 border-b border-zinc-200 dark:border-zinc-800 gap-8 bg-white dark:bg-zinc-900">
             <button
-              className={`tab-btn ${activeTab === 'preview' ? 'active' : ''}`}
+              className={`flex items-center gap-2 pb-3 border-b-2 -mb-px font-semibold text-sm transition-colors ${activeTab === 'preview' ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-zinc-500 hover:text-zinc-900 hover:border-zinc-300 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:border-zinc-700'}`}
               onClick={() => setActiveTab('preview')}
             >
               <Eye size={16} />
@@ -238,13 +238,13 @@ export default function App() {
             </button>
 
             <button
-              className={`tab-btn ${activeTab === 'gallery' ? 'active' : ''}`}
+              className={`flex items-center gap-2 pb-3 border-b-2 -mb-px font-semibold text-sm transition-colors ${activeTab === 'gallery' ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-zinc-500 hover:text-zinc-900 hover:border-zinc-300 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:border-zinc-700'}`}
               onClick={() => setActiveTab('gallery')}
             >
               <Scissors size={16} />
               <span>Galeri & Download</span>
               {slicedTiles.length > 0 && (
-                <span className="tab-badge badge-success">{slicedTiles.length} Siap</span>
+                <span className="ml-2 px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-400 text-xs font-bold">{slicedTiles.length} Siap</span>
               )}
             </button>
           </nav>
