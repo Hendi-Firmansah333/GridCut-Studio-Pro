@@ -22,26 +22,26 @@ export default function ExportSettings({ options, onChangeOption, hasImage, isPr
   return (
     <>
       {/* HD Upscaling & Pixel Enhancement Card */}
-      <section className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-        <div className="flex flex-col gap-1 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800/50 bg-zinc-50/50 dark:bg-zinc-900/50">
-          <div className="flex items-center gap-2.5">
-            <div className="flex items-center justify-center w-6 h-6 rounded bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400">
-              <Zap size={14} />
+      <section className="bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl shadow-sm">
+        <div className="flex flex-col gap-1 px-5 pt-5 pb-3">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">
+              <Zap size={16} />
             </div>
-            <h2 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Super HD Resolution & Upscaling</h2>
+            <h2 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 font-display tracking-wide">Super HD Resolution</h2>
           </div>
           <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
             Menambah piksel foto hasil potong agar tidak pecah saat diupload ke Instagram & media sosial!
           </p>
         </div>
 
-        <div className="p-4 flex flex-col gap-5">
+        <div className="px-5 pb-5 flex flex-col gap-5">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Tingkatkan Resolusi Piksel (Upscale Scale)</label>
             <CustomDropdown options={upscaleOptions} value={upscaleScale} onChange={(val) => onChangeOption('upscaleScale', val)} />
           </div>
 
-          <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-4">
+          <div className="pt-4 border-t border-zinc-200/60 dark:border-zinc-800/60 flex flex-col gap-4">
             <label className="flex items-start gap-2.5 cursor-pointer group">
               <div className="relative flex items-center justify-center w-4 h-4 mt-0.5 flex-shrink-0">
                 <input type="checkbox" checked={sharpenEnabled} onChange={(e) => onChangeOption('sharpenEnabled', e.target.checked)} className="peer sr-only" />
@@ -76,15 +76,15 @@ export default function ExportSettings({ options, onChangeOption, hasImage, isPr
       </section>
 
       {/* Export Format & Cut Buttons Card */}
-      <section className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-        <div className="flex items-center gap-2.5 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800/50 bg-zinc-50/50 dark:bg-zinc-900/50">
-          <div className="flex items-center justify-center w-6 h-6 rounded bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
-            <DownloadCloud size={14} />
+      <section className="bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-3 px-5 pt-5 pb-3">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <DownloadCloud size={16} />
           </div>
-          <h2 className="font-semibold text-sm text-zinc-800 dark:text-zinc-200">Ekspor & Unduh</h2>
+          <h2 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 font-display tracking-wide">Ekspor & Unduh</h2>
         </div>
 
-        <div className="p-4 flex flex-col gap-5">
+        <div className="px-5 pb-5 flex flex-col gap-5">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Format Gambar Output</label>
             <CustomDropdown options={formatOptions} value={format} onChange={(val) => onChangeOption('format', val)} />

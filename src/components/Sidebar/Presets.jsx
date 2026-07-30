@@ -12,15 +12,15 @@ export default function Presets({ currentPreset, onSelectPreset }) {
   ];
 
   return (
-    <section className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-      <div className="flex items-center gap-2.5 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800/50 bg-zinc-50/50 dark:bg-zinc-900/50">
-        <div className="flex items-center justify-center w-6 h-6 rounded bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400">
-          <Layers size={14} />
+    <section className="bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl shadow-sm">
+      <div className="flex items-center gap-3 px-5 pt-5 pb-3">
+        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400">
+          <Layers size={16} />
         </div>
-        <h2 className="font-semibold text-sm text-zinc-800 dark:text-zinc-200">Preset Cepat (One-Click)</h2>
+        <h2 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 font-display tracking-wide">Preset Cepat (One-Click)</h2>
       </div>
 
-      <div className="p-4 grid grid-cols-2 gap-2">
+      <div className="px-5 pb-5 grid grid-cols-2 gap-2">
         {presets.map(p => {
           const isActive = currentPreset === p.id;
           return (

@@ -29,19 +29,19 @@ export default function WatermarkSettings({ options, onChangeOption }) {
   };
 
   return (
-    <section className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+    <section className="bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl shadow-sm">
       <div 
-        className="flex items-center justify-between gap-2.5 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800/50 bg-zinc-50/50 dark:bg-zinc-900/50 cursor-pointer select-none"
+        className="flex items-center justify-between gap-3 px-5 pt-5 pb-3 cursor-pointer select-none group"
         onClick={() => setIsExpanded(prev => !prev)}
       >
-        <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-6 h-6 rounded bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400">
-            <Shield size={14} />
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+            <Shield size={16} />
           </div>
-          <h2 className="font-semibold text-sm text-zinc-800 dark:text-zinc-200">Personal Branding & Watermark</h2>
+          <h2 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 font-display tracking-wide">Personal Branding & Watermark</h2>
         </div>
-        <button className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors" title={isExpanded ? 'Tutup' : 'Buka'}>
-          {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        <button className="text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors" title={isExpanded ? 'Tutup' : 'Buka'}>
+          {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
         </button>
       </div>
 

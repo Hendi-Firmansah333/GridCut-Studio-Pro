@@ -158,15 +158,15 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
   };
 
   return (
-    <section className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-      <div className="flex items-center gap-2.5 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800/50 bg-zinc-50/50 dark:bg-zinc-900/50">
-        <div className="flex items-center justify-center w-6 h-6 rounded bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400">
-          <ImageIcon size={14} />
+    <section className="bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl shadow-sm">
+      <div className="flex items-center gap-3 px-5 pt-5 pb-3">
+        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400">
+          <ImageIcon size={16} />
         </div>
-        <h2 className="font-semibold text-sm text-zinc-800 dark:text-zinc-200">Upload & Pilih Gambar</h2>
+        <h2 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 font-display tracking-wide">Upload & Pilih Gambar</h2>
       </div>
 
-      <div className="p-4">
+      <div className="px-5 pb-5">
         <input 
           type="file" 
           ref={fileInputRef} 
@@ -177,32 +177,32 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
 
         {!sourceImage ? (
           <div 
-            className={`border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors group ${isDragging ? 'border-sky-500 bg-sky-50 dark:bg-sky-500/10' : 'border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:border-sky-400 dark:hover:border-sky-500'}`}
+            className={`border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 group ${isDragging ? 'border-sky-500 bg-sky-50 dark:bg-sky-500/10' : 'border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:border-sky-300 dark:hover:border-sky-500/50'}`}
             onClick={() => fileInputRef.current?.click()}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
           >
-            <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-500 group-hover:text-sky-500 dark:group-hover:text-sky-400 mb-3 transition-colors">
-              <UploadCloud size={20} />
+            <div className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-sky-500 dark:group-hover:text-sky-400 mb-3 shadow-sm border border-zinc-100 dark:border-zinc-700 transition-colors">
+              <UploadCloud size={18} />
             </div>
-            <p className="font-medium text-zinc-900 dark:text-zinc-100 text-sm mb-1">Drop & Paste foto di sini</p>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">Atau klik untuk pilih dari perangkat (PNG, JPG, WebP)</p>
-            <span className="mt-4 inline-flex items-center justify-center px-4 py-2 rounded-md bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-sm font-medium hover:bg-zinc-800 dark:hover:bg-white transition-colors w-full max-w-[200px]">Pilih Foto Sekarang</span>
+            <p className="font-semibold text-zinc-800 dark:text-zinc-200 text-sm mb-1">Drop & Paste foto di sini</p>
+            <p className="text-[11px] text-zinc-500 dark:text-zinc-400">PNG, JPG, WebP (Maks 20MB)</p>
+            <span className="mt-4 inline-flex items-center justify-center px-4 py-2 rounded-lg bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors w-full">Pilih Foto Sekarang</span>
           </div>
         ) : (
-          <div className="flex items-center gap-3 p-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50">
-            <div className="w-12 h-12 rounded overflow-hidden flex-shrink-0 bg-zinc-200 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700">
+          <div className="flex items-center gap-3 p-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50">
+            <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-sm">
               <img src={sourceImage.src} alt="Active Preview" className="w-full h-full object-cover" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate" title={filename}>{filename}</p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate" title={filename}>{filename}</p>
+              <p className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 mt-0.5">
                 {sourceImage.naturalWidth || sourceImage.width} × {sourceImage.naturalHeight || sourceImage.height} px
               </p>
             </div>
             <button 
-              className="p-1.5 rounded-md text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors" 
+              className="p-2 rounded-lg text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors" 
               onClick={onRemoveImage}
               title="Hapus Gambar"
             >
@@ -211,18 +211,18 @@ export default function DropZone({ sourceImage, filename, onImageLoaded, onRemov
           </div>
         )}
 
-        <div className="mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800">
-          <span className="block text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-3">Atau coba dengan gambar sampel:</span>
+        <div className="mt-5 pt-4 border-t border-zinc-100 dark:border-zinc-800/60">
+          <span className="block text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-3">Gunakan Gambar Sampel</span>
           <div className="grid grid-cols-3 gap-2">
-            <button className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors" onClick={() => generateSample('landscape')} title="Panorama 3:1 Sunset">
+            <button className="flex flex-col items-center justify-center gap-1.5 py-2.5 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 bg-zinc-50/50 dark:bg-zinc-800/30 hover:bg-white dark:hover:bg-zinc-800 hover:shadow-sm hover:border-zinc-300 dark:hover:border-zinc-600 text-[10px] font-semibold text-zinc-600 dark:text-zinc-400 transition-all" onClick={() => generateSample('landscape')} title="Panorama 3:1 Sunset">
               <Sparkles size={14} className="text-amber-500" />
               <span>Landscape</span>
             </button>
-            <button className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors" onClick={() => generateSample('portrait')} title="Portrait IG 4:5 Grid">
+            <button className="flex flex-col items-center justify-center gap-1.5 py-2.5 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 bg-zinc-50/50 dark:bg-zinc-800/30 hover:bg-white dark:hover:bg-zinc-800 hover:shadow-sm hover:border-zinc-300 dark:hover:border-zinc-600 text-[10px] font-semibold text-zinc-600 dark:text-zinc-400 transition-all" onClick={() => generateSample('portrait')} title="Portrait IG 4:5 Grid">
               <ImagePlus size={14} className="text-emerald-500" />
               <span>IG Portrait</span>
             </button>
-            <button className="flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300 transition-colors" onClick={() => generateSample('cyberpunk')} title="Cyberpunk Neon Grid">
+            <button className="flex flex-col items-center justify-center gap-1.5 py-2.5 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 bg-zinc-50/50 dark:bg-zinc-800/30 hover:bg-white dark:hover:bg-zinc-800 hover:shadow-sm hover:border-zinc-300 dark:hover:border-zinc-600 text-[10px] font-semibold text-zinc-600 dark:text-zinc-400 transition-all" onClick={() => generateSample('cyberpunk')} title="Cyberpunk Neon Grid">
               <Sparkles size={14} className="text-sky-500" />
               <span>Neon Grid</span>
             </button>

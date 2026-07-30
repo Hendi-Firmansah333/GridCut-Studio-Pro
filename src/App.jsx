@@ -256,7 +256,7 @@ export default function App() {
               showGuides={showGuides}
               onToggleGuides={() => setShowGuides(prev => !prev)}
               onTriggerUpload={() => {
-                const dropZoneInput = document.querySelector('.drop-zone input[type="file"]');
+                const dropZoneInput = document.querySelector('input[type="file"]');
                 if (dropZoneInput) dropZoneInput.click();
               }}
             />

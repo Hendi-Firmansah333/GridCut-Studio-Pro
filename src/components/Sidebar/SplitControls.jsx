@@ -47,15 +47,15 @@ export default function SplitControls({ options, onChangeOption }) {
   );
 
   return (
-    <section className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-      <div className="flex items-center gap-2.5 px-4 py-3 border-b border-zinc-100 dark:border-zinc-800/50 bg-zinc-50/50 dark:bg-zinc-900/50">
-        <div className="flex items-center justify-center w-6 h-6 rounded bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400">
-          <Sliders size={14} />
+    <section className="bg-white dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-zinc-800/80 rounded-2xl shadow-sm">
+      <div className="flex items-center gap-3 px-5 pt-5 pb-3">
+        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400">
+          <Sliders size={16} />
         </div>
-        <h2 className="font-semibold text-sm text-zinc-800 dark:text-zinc-200">Pengaturan Potong & Grid</h2>
+        <h2 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 font-display tracking-wide">Pengaturan Potong & Grid</h2>
       </div>
 
-      <div className="p-4 flex flex-col gap-5">
+      <div className="px-5 pb-5 flex flex-col gap-5">
         <div className="flex p-1 bg-zinc-100 dark:bg-zinc-800 rounded-lg">
           <label className="flex-1 cursor-pointer">
             <input type="radio" checked={direction === 'both'} onChange={() => onChangeOption('direction', 'both')} className="peer hidden" />
