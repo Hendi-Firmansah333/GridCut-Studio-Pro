@@ -11,12 +11,14 @@ import LiveCanvas from './components/Workspace/LiveCanvas';
 import ResultsGallery from './components/Workspace/ResultsGallery';
 import ToastContainer from './components/Toast';
 import PhotoboothModal from './components/PhotoboothModal';
+import LandingPage from './components/LandingPage';
 import { sliceTiles } from './utils/splitter';
 import { downloadAllZip, copyTileToClipboard, downloadSingleTile, downloadFeedMockupSheet } from './utils/exporter';
 import { Eye, Scissors } from 'lucide-react';
 import './App.css';
 
 export default function App() {
+  const [hasStarted, setHasStarted] = useState(false);
   const [theme, setTheme] = useState(() => localStorage.getItem('gridcut_theme') || 'theme-dark');
   const [guideModalOpen, setGuideModalOpen] = useState(false);
   const [isPhotoboothOpen, setIsPhotoboothOpen] = useState(false);
@@ -175,6 +177,10 @@ export default function App() {
       showToast('Gagal membuat Mockup Sheet.', 'danger');
     }
   };
+
+  if (!hasStarted) {
+    return <LandingPage onStart={() => setHasStarted(true)} />;
+  }
 
   return (
     <>
