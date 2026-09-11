@@ -129,11 +129,11 @@ export default function LandingPage({ onStart }) {
         </div>
 
         {/* Interactive Floating Mockup */}
-        <div className="mt-24 w-full max-w-5xl animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-700 relative z-20">
+        <div className="mt-32 w-full max-w-5xl animate-in fade-in slide-in-from-bottom-12 duration-1000 delay-700 relative z-20">
           <div className="absolute -inset-1 bg-gradient-to-r from-sky-500/20 via-indigo-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-50 animate-pulse"></div>
           
-          {/* Main Card with Float Animation */}
-          <div className="relative rounded-3xl border border-zinc-700/50 bg-zinc-900/60 backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row gap-4 transition-transform duration-1000 hover:scale-[1.01] hover:border-zinc-600/80 group animate-[bounce_8s_infinite] [animation-timing-function:cubic-bezier(0.28,0.84,0.42,1)]">
+          {/* Main Card with Hover Scale */}
+          <div className="relative rounded-3xl border border-zinc-700/50 bg-zinc-900/60 backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row gap-4 transition-transform duration-1000 hover:scale-[1.02] hover:border-zinc-600/80 group">
             
             {/* Sidebar Mockup */}
             <div className="hidden md:flex flex-col gap-4 w-72 border-r border-zinc-800/50 p-6 bg-black/20">
