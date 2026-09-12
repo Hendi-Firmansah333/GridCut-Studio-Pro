@@ -12,6 +12,7 @@ import ResultsGallery from './components/Workspace/ResultsGallery';
 import ToastContainer from './components/Toast';
 import PhotoboothModal from './components/PhotoboothModal';
 import LandingPage from './components/LandingPage';
+import ChangelogModal from './components/ChangelogModal';
 import { sliceTiles } from './utils/splitter';
 import { downloadAllZip, copyTileToClipboard, downloadSingleTile, downloadFeedMockupSheet } from './utils/exporter';
 import { Eye, Scissors } from 'lucide-react';
@@ -22,6 +23,7 @@ export default function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('gridcut_theme') || 'theme-dark');
   const [guideModalOpen, setGuideModalOpen] = useState(false);
   const [isPhotoboothOpen, setIsPhotoboothOpen] = useState(false);
+  const [isChangelogOpen, setIsChangelogOpen] = useState(false);
   const [sourceImage, setSourceImage] = useState(null);
   const [filename, setFilename] = useState('');
   const [showGuides, setShowGuides] = useState(true);
@@ -189,6 +191,7 @@ export default function App() {
         toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
         onOpenGuide={() => setGuideModalOpen(true)}
         onOpenPhotobooth={() => setIsPhotoboothOpen(true)}
+        onOpenChangelog={() => setIsChangelogOpen(true)}
       />
 
       <main className="flex flex-col-reverse lg:flex-row min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] bg-white dark:bg-zinc-950 lg:overflow-hidden">
@@ -290,6 +293,11 @@ export default function App() {
       <GuideModal
         isOpen={guideModalOpen}
         onClose={() => setGuideModalOpen(false)}
+      />
+
+      <ChangelogModal
+        isOpen={isChangelogOpen}
+        onClose={() => setIsChangelogOpen(false)}
       />
 
       <ToastContainer toasts={toasts} />

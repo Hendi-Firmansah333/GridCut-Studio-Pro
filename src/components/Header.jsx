@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, HelpCircle, Sun, Moon, Camera, Layers } from 'lucide-react';
 
-export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth }) {
+export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth, onOpenChangelog }) {
   return (
     <header className="h-16 flex items-center justify-between px-6 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shrink-0 sticky top-0 z-40">
       <div className="flex items-center gap-4">
@@ -10,9 +10,13 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
         </div>
         <div className="flex items-center gap-2">
           <h1 className="text-lg sm:text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 font-display">GridCut <span className="text-sky-600 dark:text-sky-400">Pro</span></h1>
-          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-500/20 text-[10px] font-bold text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/30">
+          <button 
+            onClick={onOpenChangelog}
+            className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-500/20 text-[10px] font-bold text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/30 hover:bg-sky-200 dark:hover:bg-sky-500/30 transition-colors cursor-pointer"
+            title="Lihat Pembaruan v2.0"
+          >
             v2.0 Beta
-          </span>
+          </button>
         </div>
       </div>
 
