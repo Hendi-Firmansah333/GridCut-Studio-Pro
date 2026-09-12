@@ -1,7 +1,20 @@
-import React from 'react';
-import { Grid, HelpCircle, Sun, Moon, Camera, Layers } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Grid, HelpCircle, Sun, Moon, Camera, Layers, Github, BookOpen, ChevronDown } from 'lucide-react';
 
 export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth, onOpenChangelog }) {
+  const [isFileMenuOpen, setIsFileMenuOpen] = useState(false);
+  const fileMenuRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (fileMenuRef.current && !fileMenuRef.current.contains(event.target)) {
+        setIsFileMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <header className="h-16 flex items-center justify-between px-6 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shrink-0 sticky top-0 z-40">
       <div className="flex items-center gap-4">
@@ -21,13 +34,59 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
       </div>
 
       <div className="flex items-center gap-2">
-        <button 
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-          title="File Settings"
-        >
-          <Layers size={14} />
-          <span className="hidden md:inline">File</span>
-        </button>
+        <div className="relative" ref={fileMenuRef}>
+          <button 
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${isFileMenuOpen ? 'bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800'}`}
+            title="Menu Utama"
+            onClick={() => setIsFileMenuOpen(!isFileMenuOpen)}
+          >
+            <Layers size={14} />
+            <span className="hidden md:inline">Menu</span>
+            <ChevronDown size={14} className={`transition-transform ${isFileMenuOpen ? 'rotate-180' : ''}`} />
+          </button>
+          
+          {isFileMenuOpen && (
+            <div className="absolute right-0 sm:left-0 mt-2 w-56 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200 z-50">
+              <div className="py-1">
+                <button 
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                  onClick={() => { onOpenChangelog(); setIsFileMenuOpen(false); }}
+                >
+                  <Grid size={16} className="text-sky-500" />
+                  <span>Versi & Pembaruan (v2.0)</span>
+                </button>
+                <button 
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                  onClick={() => { onOpenGuide(); setIsFileMenuOpen(false); }}
+                >
+                  <HelpCircle size={16} className="text-emerald-500" />
+                  <span>Panduan Edukasi</span>
+                </button>
+                <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-1"></div>
+                <a 
+                  href="https://github.com/Hendi-Firmansah333/GridCut-Studio-Pro"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                  onClick={() => setIsFileMenuOpen(false)}
+                >
+                  <Github size={16} />
+                  <span>Source Code (GitHub)</span>
+                </a>
+                <a 
+                  href="https://github.com/Hendi-Firmansah333/GridCut-Studio-Pro/blob/main/README.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                  onClick={() => setIsFileMenuOpen(false)}
+                >
+                  <BookOpen size={16} />
+                  <span>Dokumentasi API</span>
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
         
         <div className="w-px h-4 bg-zinc-200 dark:bg-zinc-800 mx-1"></div>
 
