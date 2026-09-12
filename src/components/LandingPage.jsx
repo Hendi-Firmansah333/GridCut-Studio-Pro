@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { LayoutGrid, Image as ImageIcon, Shield, Zap, SlidersHorizontal, ArrowRight } from 'lucide-react';
+import PrivacyModal from './PrivacyModal';
 
 export default function LandingPage({ onStart }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   // Sequential Grid Animation
   useEffect(() => {
@@ -310,8 +312,16 @@ export default function LandingPage({ onStart }) {
           <p className="text-zinc-600 text-sm">
             &copy; {new Date().getFullYear()} GridCut Studio Pro.
           </p>
+          <button 
+            onClick={() => setIsPrivacyOpen(true)}
+            className="text-xs text-zinc-500 hover:text-sky-400 underline decoration-zinc-700 hover:decoration-sky-400 transition-all"
+          >
+            Kebijakan Privasi
+          </button>
         </div>
       </footer>
+
+      <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
     </div>
   );
 }
