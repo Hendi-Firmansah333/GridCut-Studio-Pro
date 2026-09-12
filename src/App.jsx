@@ -191,9 +191,9 @@ export default function App() {
         onOpenPhotobooth={() => setIsPhotoboothOpen(true)}
       />
 
-      <main className="flex flex-col lg:flex-row h-[calc(100vh-4rem)] bg-white dark:bg-zinc-950 overflow-hidden">
+      <main className="flex flex-col-reverse lg:flex-row min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] bg-white dark:bg-zinc-950 lg:overflow-hidden">
         {/* Left Panel: Tools & Controls */}
-        <aside className="w-full lg:w-80 xl:w-96 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-900/50 overflow-y-auto flex flex-col gap-6 p-5">
+        <aside className="w-full lg:w-80 xl:w-96 flex-shrink-0 lg:border-r border-t lg:border-t-0 border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-900/50 lg:overflow-y-auto flex flex-col gap-6 p-5 pb-24 lg:pb-5">
           <DropZone
             sourceImage={sourceImage}
             filename={filename}
@@ -233,8 +233,8 @@ export default function App() {
         </aside>
 
         {/* Center Panel: Workspace Tabs & Viewport */}
-        <section className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-black/20">
-          <nav className="flex items-center px-6 pt-4 border-b border-zinc-200 dark:border-zinc-800 gap-8 bg-white dark:bg-zinc-900">
+        <section className="flex-1 flex flex-col lg:overflow-hidden bg-white dark:bg-black/20 min-h-[60vh] lg:min-h-0">
+          <nav className="flex items-center px-4 md:px-6 pt-4 border-b border-zinc-200 dark:border-zinc-800 gap-4 md:gap-8 bg-white dark:bg-zinc-900 overflow-x-auto whitespace-nowrap hide-scrollbar">
             <button
               className={`flex items-center gap-2 pb-3 border-b-2 -mb-px font-semibold text-sm transition-colors ${activeTab === 'preview' ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-zinc-500 hover:text-zinc-900 hover:border-zinc-300 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:border-zinc-700'}`}
               onClick={() => setActiveTab('preview')}

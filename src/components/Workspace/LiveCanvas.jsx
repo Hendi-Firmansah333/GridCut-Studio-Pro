@@ -22,8 +22,8 @@ export default function LiveCanvas({ sourceImage, options, showGuides, onToggleG
 
   return (
     <div className="flex flex-col flex-1 h-full animate-in fade-in duration-300">
-      <div className="flex items-center justify-between px-6 py-3 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-3 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 gap-3 sm:gap-0">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <span className="font-semibold text-sm text-sky-600 dark:text-sky-400">{tiles.length} Potongan</span>
           <span className="text-zinc-300 dark:text-zinc-700">•</span>
           <span className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -53,7 +53,7 @@ export default function LiveCanvas({ sourceImage, options, showGuides, onToggleG
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto bg-zinc-100/50 dark:bg-black/40 flex items-center justify-center p-6 lg:p-10 relative">
+      <div className="flex-1 overflow-auto bg-zinc-100/50 dark:bg-black/40 flex items-center justify-center p-4 sm:p-6 lg:p-10 relative">
         {!sourceImage ? (
           <div className="flex flex-col items-center justify-center max-w-md w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-10 text-center shadow-lg shadow-zinc-200/50 dark:shadow-none animate-in zoom-in-95 duration-500">
             <div className="w-16 h-16 rounded-full bg-sky-100 dark:bg-sky-500/20 flex items-center justify-center text-sky-600 dark:text-sky-400 mb-6 shadow-inner relative">
@@ -73,8 +73,8 @@ export default function LiveCanvas({ sourceImage, options, showGuides, onToggleG
             </button>
           </div>
         ) : (
-          <div className="relative max-w-full max-h-full animate-in zoom-in-95 duration-500 shadow-2xl ring-1 ring-zinc-200 dark:ring-zinc-800 rounded bg-zinc-200 dark:bg-zinc-900">
-            <canvas ref={canvasRef} className="block max-w-full rounded" style={{ maxHeight: 'calc(100vh - 230px)', objectFit: 'contain' }} />
+          <div className="relative max-w-full max-h-full animate-in zoom-in-95 duration-500 shadow-2xl ring-1 ring-zinc-200 dark:ring-zinc-800 rounded bg-zinc-200 dark:bg-zinc-900 w-full flex justify-center">
+            <canvas ref={canvasRef} className="block max-w-full rounded object-contain max-h-[50vh] lg:max-h-[calc(100vh-250px)] w-auto" />
           </div>
         )}
       </div>

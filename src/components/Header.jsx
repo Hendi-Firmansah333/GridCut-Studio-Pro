@@ -9,8 +9,8 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
           <Grid size={18} />
         </div>
         <div className="flex items-center gap-2">
-          <h1 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 font-display">GridCut <span className="text-sky-600 dark:text-sky-400">Pro</span></h1>
-          <span className="px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-500/20 text-[10px] font-bold text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/30">
+          <h1 className="text-lg sm:text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 font-display">GridCut <span className="text-sky-600 dark:text-sky-400">Pro</span></h1>
+          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-500/20 text-[10px] font-bold text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/30">
             v2.0 Beta
           </span>
         </div>
@@ -22,7 +22,7 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
           title="File Settings"
         >
           <Layers size={14} />
-          <span>File</span>
+          <span className="hidden md:inline">File</span>
         </button>
         
         <div className="w-px h-4 bg-zinc-200 dark:bg-zinc-800 mx-1"></div>
@@ -33,7 +33,7 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
           title="Buka Photobooth Premium"
         >
           <Camera size={14} />
-          <span>Photobooth</span>
+          <span className="hidden md:inline">Photobooth</span>
         </button>
 
         <button 
@@ -42,7 +42,7 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
           title="Panduan Urutan Upload IG"
         >
           <HelpCircle size={14} />
-          <span>Panduan</span>
+          <span className="hidden md:inline">Panduan</span>
         </button>
 
         <button 
