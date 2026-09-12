@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Grid, HelpCircle, Sun, Moon, Camera, Layers, Github, BookOpen, ChevronDown } from 'lucide-react';
+import { Grid, HelpCircle, Sun, Moon, Camera, Layers, Code2, BookOpen, ChevronDown } from 'lucide-react';
 
 export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth, onOpenChangelog }) {
   const [isFileMenuOpen, setIsFileMenuOpen] = useState(false);
@@ -70,7 +70,7 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
                   className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
                   onClick={() => setIsFileMenuOpen(false)}
                 >
-                  <Github size={16} />
+                  <Code2 size={16} />
                   <span>Source Code (GitHub)</span>
                 </a>
                 <a 
