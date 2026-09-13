@@ -111,8 +111,14 @@ export default function DocumentationPage({ theme, toggleTheme, onBack }) {
             <span>Kembali ke Workspace</span>
           </button>
           <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700"></div>
-          <h1 className="text-lg font-bold tracking-tight font-display flex items-center gap-2">
-            <span>Dokumentasi <span className="text-sky-600 dark:text-sky-400">Developer</span></span>
+          <h1 className="text-lg font-bold tracking-tight font-display flex items-center gap-3">
+            <span className="flex items-center gap-2">
+              <BookOpen size={20} className="text-sky-500" />
+              <span>Dokumentasi</span>
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-[11px] font-bold text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+              v2.0 Beta
+            </span>
           </h1>
         </div>
         <div>
@@ -141,33 +147,33 @@ export default function DocumentationPage({ theme, toggleTheme, onBack }) {
                 <div key={section.id} className="mb-2">
                   <button
                     onClick={() => handleToggleSection(section.id)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    className={`w-full flex items-center justify-between px-3 py-3 rounded-xl text-[15px] transition-all ${
                       isActive 
-                        ? 'text-sky-700 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/10' 
-                        : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-zinc-200'
+                        ? 'font-bold text-zinc-900 dark:text-zinc-50' 
+                        : 'font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800/30'
                     }`}
                   >
                     <span>{section.title}</span>
                     {isExpanded ? (
-                      <ChevronDown size={14} className="opacity-70" />
+                      <ChevronDown size={18} className="text-zinc-400" />
                     ) : (
-                      <ChevronRight size={14} className="opacity-70" />
+                      <ChevronRight size={18} className="text-zinc-400" />
                     )}
                   </button>
                   
                   {/* Dropdown Sub Items */}
-                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-48 opacity-100 mt-1' : 'max-h-0 opacity-0'}`}>
-                    <div className="pl-4 pr-2 py-1 space-y-0.5 border-l border-zinc-200 dark:border-zinc-800 ml-5">
+                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-64 opacity-100 mt-1' : 'max-h-0 opacity-0'}`}>
+                    <div className="pl-2 pr-2 py-1 space-y-1">
                       {section.subItems.map(sub => {
                         const isSubActive = activeSub === sub.id;
                         return (
                           <button
                             key={sub.id}
                             onClick={() => handleSubClick(section.id, sub.id)}
-                            className={`w-full text-left px-3 py-1.5 rounded-md text-sm transition-colors ${
+                            className={`w-full text-left px-4 py-2 rounded-xl text-[14px] transition-colors ${
                               isSubActive
-                                ? 'text-sky-600 dark:text-sky-400 font-semibold bg-sky-50/50 dark:bg-sky-500/5'
-                                : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/30'
+                                ? 'text-sky-700 dark:text-sky-400 font-semibold bg-sky-50 dark:bg-sky-500/10'
+                                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-800/30'
                             }`}
                           >
                             {sub.title}
@@ -279,28 +285,28 @@ export default function DocumentationPage({ theme, toggleTheme, onBack }) {
                 <h2 className="text-3xl font-display font-bold">Fitur Utama</h2>
                 
                 <div className="space-y-8">
-                  <div id="feat-slicer" className="scroll-mt-8 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm transition-all hover:shadow-md">
+                  <div id="feat-slicer" className="scroll-mt-8 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
                     <h3 className="text-xl font-bold font-display mb-3 text-zinc-900 dark:text-zinc-100">Smart Slicer</h3>
                     <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
                       Memotong gambar berdasarkan algoritma matriks presisi tinggi. Mendukung konfigurasi jumlah baris dan kolom yang fleksibel. Dilengkapi mode tumpang-tindih (Overlap) khusus untuk menciptakan ilusi *Carousel Seamless* pada unggahan multi-foto di Instagram.
                     </p>
                   </div>
 
-                  <div id="feat-preview" className="scroll-mt-8 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm transition-all hover:shadow-md">
+                  <div id="feat-preview" className="scroll-mt-8 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
                     <h3 className="text-xl font-bold font-display mb-3 text-zinc-900 dark:text-zinc-100">Live Interactive Preview</h3>
                     <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
                       Kanvas kerja utama memberikan representasi visual 1:1 (*pixel-perfect*) terhadap hasil akhir. Garis panduan (guidelines) merespons perubahan pengaturan secara *real-time* sebelum pemrosesan akhir dimulai.
                     </p>
                   </div>
 
-                  <div id="feat-color" className="scroll-mt-8 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm transition-all hover:shadow-md">
+                  <div id="feat-color" className="scroll-mt-8 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
                     <h3 className="text-xl font-bold font-display mb-3 text-zinc-900 dark:text-zinc-100">Real-time Color Engine</h3>
                     <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
                       Manipulasi filter tingkat lanjut yang dieksekusi langsung pada piksel kanvas. Memungkinkan pengguna mengatur kecerahan, kontras, saturasi, serta menerapkan penajaman gambar (*Sharpening Convolution Matrix*) otomatis untuk melawan algoritma kompresi media sosial.
                     </p>
                   </div>
 
-                  <div id="feat-watermark" className="scroll-mt-8 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-sm transition-all hover:shadow-md">
+                  <div id="feat-watermark" className="scroll-mt-8 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
                     <h3 className="text-xl font-bold font-display mb-3 text-zinc-900 dark:text-zinc-100">Watermark System</h3>
                     <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
                       Integrasi penanda air (*watermark*) kustom secara dinamis. Mendukung gaya kontur kapsul elegan, kontrol transparansi (*opacity*), posisi relatif terhadap dimensi potongan, serta pengaturan ruang lingkup (*scope*)—apakah diterapkan pada semua panel potongan atau hanya pada bingkai terakhir.
