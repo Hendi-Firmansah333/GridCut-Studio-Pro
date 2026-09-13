@@ -111,14 +111,9 @@ export default function DocumentationPage({ theme, toggleTheme, onBack }) {
             <span>Kembali ke Workspace</span>
           </button>
           <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700"></div>
-          <h1 className="text-lg font-bold tracking-tight font-display flex items-center gap-3">
-            <span className="flex items-center gap-2">
-              <BookOpen size={20} className="text-sky-500" />
-              <span>Dokumentasi</span>
-            </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-[11px] font-bold text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
-              v2.0 Beta
-            </span>
+          <h1 className="text-lg font-bold tracking-tight font-display flex items-center gap-2">
+            <BookOpen size={20} className="text-sky-500" />
+            <span>Dokumentasi <span className="text-zinc-500 font-medium">Developer</span></span>
           </h1>
         </div>
         <div>
@@ -137,14 +132,18 @@ export default function DocumentationPage({ theme, toggleTheme, onBack }) {
         {/* Sidebar Nav */}
         <aside className="w-72 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 overflow-y-auto hidden md:block">
           <nav className="p-4 space-y-1">
-            <div className="text-xs font-bold tracking-wider text-zinc-400 dark:text-zinc-500 uppercase mb-4 px-3 mt-2">Daftar Isi</div>
+            <div className="mb-6 px-3 mt-2">
+              <span className="inline-flex items-center px-2 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800/50 text-[11px] font-bold text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700/50 tracking-wider">
+                v2.0 Beta
+              </span>
+            </div>
             
             {SECTIONS.map(section => {
               const isActive = activeSection === section.id;
               const isExpanded = expandedSections[section.id];
               
               return (
-                <div key={section.id} className="mb-2">
+                <div key={section.id} className="mb-0.5">
                   <button
                     onClick={() => handleToggleSection(section.id)}
                     className={`w-full flex items-center justify-between px-3 py-3 rounded-xl text-[15px] transition-all ${
