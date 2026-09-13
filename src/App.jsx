@@ -63,8 +63,13 @@ export default function App() {
     watermarkOpacity: 0.85
   });
 
-  // Sync theme with body class and localStorage
+  // Sync theme with body class, HTML class (for Tailwind), and localStorage
   useEffect(() => {
+    if (theme === 'theme-dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
     document.body.className = theme;
     localStorage.setItem('gridcut_theme', theme);
   }, [theme]);
