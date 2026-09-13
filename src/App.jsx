@@ -12,6 +12,7 @@ import ResultsGallery from './components/Workspace/ResultsGallery';
 import ToastContainer from './components/Toast';
 import PhotoboothModal from './components/PhotoboothModal';
 import LandingPage from './components/LandingPage';
+import DocumentationPage from './components/DocumentationPage';
 import ChangelogModal from './components/ChangelogModal';
 import { sliceTiles } from './utils/splitter';
 import { downloadAllZip, copyTileToClipboard, downloadSingleTile, downloadFeedMockupSheet } from './utils/exporter';
@@ -19,7 +20,7 @@ import { Eye, Scissors, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import './App.css';
 
 export default function App() {
-  const [hasStarted, setHasStarted] = useState(false);
+  const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'workspace' | 'docs'
   const [theme, setTheme] = useState(() => localStorage.getItem('gridcut_theme') || 'theme-dark');
   const [guideModalOpen, setGuideModalOpen] = useState(false);
   const [isPhotoboothOpen, setIsPhotoboothOpen] = useState(false);
@@ -186,8 +187,18 @@ export default function App() {
     }
   };
 
-  if (!hasStarted) {
-    return <LandingPage onStart={() => setHasStarted(true)} />;
+  if (currentView === 'landing') {
+    return <LandingPage onStart={() => setCurrentView('workspace')} />;
+  }
+
+  if (currentView === 'docs') {
+    return (
+      <DocumentationPage 
+        theme={theme} 
+        toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
+        onBack={() => setCurrentView('workspace')} 
+      />
+    );
   }
 
   return (
@@ -198,6 +209,7 @@ export default function App() {
         onOpenGuide={() => setGuideModalOpen(true)}
         onOpenPhotobooth={() => setIsPhotoboothOpen(true)}
         onOpenChangelog={() => setIsChangelogOpen(true)}
+        onOpenDocs={() => setCurrentView('docs')}
       />
 
       <main className="flex flex-col-reverse lg:flex-row min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] bg-white dark:bg-zinc-950 lg:overflow-hidden">

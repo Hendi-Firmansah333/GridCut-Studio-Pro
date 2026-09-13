@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Grid, HelpCircle, Sun, Moon, Camera, Layers, Code2, BookOpen, ChevronDown } from 'lucide-react';
 
-export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth, onOpenChangelog }) {
+export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth, onOpenChangelog, onOpenDocs }) {
   const [isFileMenuOpen, setIsFileMenuOpen] = useState(false);
   const fileMenuRef = useRef(null);
 
@@ -73,16 +73,13 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
                   <Code2 size={16} />
                   <span>Source Code (GitHub)</span>
                 </a>
-                <a 
-                  href="https://github.com/Hendi-Firmansah333/GridCut-Studio-Pro/blob/main/README.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
                   className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
-                  onClick={() => setIsFileMenuOpen(false)}
+                  onClick={() => { onOpenDocs(); setIsFileMenuOpen(false); }}
                 >
-                  <BookOpen size={16} />
-                  <span>Dokumentasi API</span>
-                </a>
+                  <BookOpen size={16} className="text-purple-500" />
+                  <span>Dokumentasi Developer</span>
+                </button>
               </div>
             </div>
           )}
