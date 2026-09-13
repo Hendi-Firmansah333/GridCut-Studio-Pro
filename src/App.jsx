@@ -15,7 +15,7 @@ import LandingPage from './components/LandingPage';
 import ChangelogModal from './components/ChangelogModal';
 import { sliceTiles } from './utils/splitter';
 import { downloadAllZip, copyTileToClipboard, downloadSingleTile, downloadFeedMockupSheet } from './utils/exporter';
-import { Eye, Scissors } from 'lucide-react';
+import { Eye, Scissors, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import './App.css';
 
 export default function App() {
@@ -24,6 +24,7 @@ export default function App() {
   const [guideModalOpen, setGuideModalOpen] = useState(false);
   const [isPhotoboothOpen, setIsPhotoboothOpen] = useState(false);
   const [isChangelogOpen, setIsChangelogOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [sourceImage, setSourceImage] = useState(null);
   const [filename, setFilename] = useState('');
   const [showGuides, setShowGuides] = useState(true);
@@ -201,48 +202,59 @@ export default function App() {
 
       <main className="flex flex-col-reverse lg:flex-row min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] bg-white dark:bg-zinc-950 lg:overflow-hidden">
         {/* Left Panel: Tools & Controls */}
-        <aside className="w-full lg:w-80 xl:w-96 flex-shrink-0 lg:border-r border-t lg:border-t-0 border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-900/50 lg:overflow-y-auto flex flex-col gap-6 p-5 pb-24 lg:pb-5">
-          <DropZone
-            sourceImage={sourceImage}
-            filename={filename}
-            onImageLoaded={handleImageLoaded}
-            onRemoveImage={handleRemoveImage}
-          />
+        <aside className={`flex-shrink-0 transition-all duration-300 ease-in-out lg:border-r border-t lg:border-t-0 border-zinc-200 dark:border-zinc-800 bg-zinc-50/80 dark:bg-zinc-900/50 flex flex-col overflow-hidden ${isSidebarOpen ? 'w-full lg:w-80 xl:w-96 opacity-100' : 'w-0 h-0 lg:h-full opacity-0 border-none'}`}>
+          <div className="w-full lg:w-80 xl:w-96 flex flex-col gap-6 p-5 pb-24 lg:pb-5 h-full overflow-y-auto custom-scrollbar">
+            <DropZone
+              sourceImage={sourceImage}
+              filename={filename}
+              onImageLoaded={handleImageLoaded}
+              onRemoveImage={handleRemoveImage}
+            />
 
-          <Presets
-            currentPreset={currentPreset}
-            onSelectPreset={handleSelectPreset}
-          />
+            <Presets
+              currentPreset={currentPreset}
+              onSelectPreset={handleSelectPreset}
+            />
 
-          <SplitControls
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
+            <SplitControls
+              options={options}
+              onChangeOption={handleChangeOption}
+            />
 
-          <ColorEffects
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
+            <ColorEffects
+              options={options}
+              onChangeOption={handleChangeOption}
+            />
 
-          <WatermarkSettings
-            options={options}
-            onChangeOption={handleChangeOption}
-          />
+            <WatermarkSettings
+              options={options}
+              onChangeOption={handleChangeOption}
+            />
 
-          <ExportSettings
-            options={options}
-            onChangeOption={handleChangeOption}
-            hasImage={!!sourceImage}
-            isProcessing={isProcessing}
-            slicedCount={slicedTiles.length}
-            onCutNow={handleCutNow}
-            onDownloadZip={handleDownloadZip}
-          />
+            <ExportSettings
+              options={options}
+              onChangeOption={handleChangeOption}
+              hasImage={!!sourceImage}
+              isProcessing={isProcessing}
+              slicedCount={slicedTiles.length}
+              onCutNow={handleCutNow}
+              onDownloadZip={handleDownloadZip}
+            />
+          </div>
         </aside>
 
         {/* Center Panel: Workspace Tabs & Viewport */}
         <section className="flex-1 flex flex-col lg:overflow-hidden bg-white dark:bg-black/20 min-h-[60vh] lg:min-h-0">
           <nav className="flex items-center px-4 md:px-6 pt-4 border-b border-zinc-200 dark:border-zinc-800 gap-4 md:gap-8 bg-white dark:bg-zinc-900 overflow-x-auto whitespace-nowrap hide-scrollbar">
+            
+            <button 
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="hidden lg:flex items-center justify-center p-2 -ml-2 mr-2 rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              title={isSidebarOpen ? "Tutup Panel (Sidebar)" : "Buka Panel (Sidebar)"}
+            >
+              {isSidebarOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
+            </button>
+
             <button
               className={`flex items-center gap-2 pb-3 border-b-2 -mb-px font-semibold text-sm transition-colors ${activeTab === 'preview' ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-zinc-500 hover:text-zinc-900 hover:border-zinc-300 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:border-zinc-700'}`}
               onClick={() => setActiveTab('preview')}
