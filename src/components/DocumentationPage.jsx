@@ -161,26 +161,31 @@ export default function DocumentationPage({ theme, toggleTheme, onBack }) {
                   </button>
                   
                   {/* Dropdown Sub Items */}
-                  <div className={`grid transition-all duration-300 ease-in-out ${isExpanded ? 'grid-rows-[1fr] opacity-100 mt-1' : 'grid-rows-[0fr] opacity-0'}`}>
-                    <div className="overflow-hidden">
-                      <div className="pl-2 pr-2 py-1 space-y-1">
-                        {section.subItems.map(sub => {
-                          const isSubActive = activeSub === sub.id;
-                          return (
-                            <button
-                              key={sub.id}
-                              onClick={() => handleSubClick(section.id, sub.id)}
-                              className={`w-full text-left px-4 py-2 rounded-xl text-[14px] transition-colors ${
-                                isSubActive
-                                  ? 'text-sky-700 dark:text-sky-400 font-semibold bg-sky-50 dark:bg-sky-500/10'
-                                  : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-800/30'
-                              }`}
-                            >
-                              {sub.title}
-                            </button>
-                          );
-                        })}
-                      </div>
+                  <div 
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: isExpanded ? '400px' : '0px',
+                      opacity: isExpanded ? 1 : 0,
+                      marginTop: isExpanded ? '0.25rem' : '0px'
+                    }}
+                  >
+                    <div className="pl-2 pr-2 py-1 space-y-1">
+                      {section.subItems.map(sub => {
+                        const isSubActive = activeSub === sub.id;
+                        return (
+                          <button
+                            key={sub.id}
+                            onClick={() => handleSubClick(section.id, sub.id)}
+                            className={`w-full text-left px-4 py-2 rounded-xl text-[14px] transition-colors ${
+                              isSubActive
+                                ? 'text-sky-700 dark:text-sky-400 font-semibold bg-sky-50 dark:bg-sky-500/10'
+                                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-800/30'
+                            }`}
+                          >
+                            {sub.title}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
