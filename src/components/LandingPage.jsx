@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { LayoutGrid, Image as ImageIcon, Shield, Zap, SlidersHorizontal, ArrowRight } from 'lucide-react';
+import { LayoutGrid, Image as ImageIcon, Shield, Zap, SlidersHorizontal, ArrowRight, BookOpen, Sparkles, PlayCircle, Code } from 'lucide-react';
 import PrivacyModal from './PrivacyModal';
 
-export default function LandingPage({ onStart }) {
+export default function LandingPage({ onStart, onOpenDocs, onOpenGuide, onOpenChangelog }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
@@ -59,6 +59,7 @@ export default function LandingPage({ onStart }) {
       {/* Navigation */}
       <nav className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-black/30 backdrop-blur-md">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
+          
           <div className="flex items-center gap-2 group cursor-default">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-500 to-indigo-500 p-[1px] group-hover:shadow-[0_0_15px_rgba(14,165,233,0.5)] transition-shadow duration-500">
               <div className="w-full h-full bg-zinc-950 rounded-[7px] flex items-center justify-center">
@@ -67,9 +68,30 @@ export default function LandingPage({ onStart }) {
             </div>
             <span className="font-display font-semibold text-lg tracking-tight text-white">GridCut Pro</span>
           </div>
+
+          <div className="hidden md:flex items-center gap-6">
+            <button onClick={onOpenChangelog} className="flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+              <Sparkles size={14} />
+              <span>v2.0</span>
+            </button>
+            <button onClick={onOpenDocs} className="flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+              <BookOpen size={14} />
+              <span>Dokumentasi</span>
+            </button>
+            <button onClick={onOpenGuide} className="flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+              <PlayCircle size={14} />
+              <span>Panduan</span>
+            </button>
+            <div className="w-px h-4 bg-zinc-800"></div>
+            <a href="https://github.com/Hendi-Firmansah333/GridCut-Studio-Pro" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-white transition-colors">
+              <Code size={14} />
+              <span>GitHub</span>
+            </a>
+          </div>
+
           <button 
             onClick={onStart}
-            className="text-sm font-medium text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:w-full after:h-[1px] after:bg-sky-400 after:left-0 after:-bottom-1 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-right hover:after:origin-left"
+            className="text-sm font-bold text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-colors border border-white/5 shadow-sm"
           >
             Masuk Workspace
           </button>

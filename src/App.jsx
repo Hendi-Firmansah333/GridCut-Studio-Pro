@@ -186,7 +186,14 @@ export default function App() {
   };
 
   if (currentView === 'landing') {
-    return <LandingPage onStart={() => setCurrentView('workspace')} />;
+    return (
+      <LandingPage 
+        onStart={() => setCurrentView('workspace')} 
+        onOpenDocs={() => setCurrentView('docs')}
+        onOpenGuide={() => setCurrentView('guide')}
+        onOpenChangelog={() => setCurrentView('changelog')}
+      />
+    );
   }
 
   if (currentView === 'docs') {
