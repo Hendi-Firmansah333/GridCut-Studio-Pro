@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Grid, HelpCircle, Sun, Moon, Camera, Layers, Code2, BookOpen, ChevronDown } from 'lucide-react';
 
-export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotobooth, onOpenChangelog, onOpenDocs }) {
+export default function Header({ theme, toggleTheme, onGoHome, onOpenGuide, onOpenPhotobooth, onOpenChangelog, onOpenDocs }) {
   const [isFileMenuOpen, setIsFileMenuOpen] = useState(false);
   const fileMenuRef = useRef(null);
 
@@ -18,11 +18,19 @@ export default function Header({ theme, toggleTheme, onOpenGuide, onOpenPhotoboo
   return (
     <header className="h-16 flex items-center justify-between px-6 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shrink-0 sticky top-0 z-40">
       <div className="flex items-center gap-4">
-        <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-md">
-          <Grid size={18} />
-        </div>
+        <button 
+          onClick={onGoHome}
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity cursor-pointer text-left"
+          title="Kembali ke Beranda"
+        >
+          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-md">
+            <Grid size={18} />
+          </div>
+          <h1 className="text-lg sm:text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 font-display">
+            GridCut <span className="text-sky-600 dark:text-sky-400">Pro</span>
+          </h1>
+        </button>
         <div className="flex items-center gap-2">
-          <h1 className="text-lg sm:text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 font-display">GridCut <span className="text-sky-600 dark:text-sky-400">Pro</span></h1>
           <button 
             onClick={onOpenChangelog}
             className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-500/20 text-[10px] font-bold text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/30 hover:bg-sky-200 dark:hover:bg-sky-500/30 transition-colors cursor-pointer"

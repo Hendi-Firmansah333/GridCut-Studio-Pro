@@ -231,6 +231,7 @@ export default function App() {
       <Header
         theme={theme}
         toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
+        onGoHome={() => setCurrentView('landing')}
         onOpenGuide={() => setCurrentView('guide')}
         onOpenPhotobooth={() => setIsPhotoboothOpen(true)}
         onOpenChangelog={() => setCurrentView('changelog')}
