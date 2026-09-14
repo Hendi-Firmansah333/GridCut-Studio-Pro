@@ -13,17 +13,16 @@ import ToastContainer from './components/Toast';
 import PhotoboothModal from './components/PhotoboothModal';
 import LandingPage from './components/LandingPage';
 import DocumentationPage from './components/DocumentationPage';
-import ChangelogModal from './components/ChangelogModal';
+import ChangelogPage from './components/ChangelogPage';
 import { sliceTiles } from './utils/splitter';
 import { downloadAllZip, copyTileToClipboard, downloadSingleTile, downloadFeedMockupSheet } from './utils/exporter';
 import { Eye, Scissors, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import './App.css';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'workspace' | 'docs' | 'guide'
+  const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'workspace' | 'docs' | 'guide' | 'changelog'
   const [theme, setTheme] = useState(() => localStorage.getItem('gridcut_theme') || 'theme-dark');
   const [isPhotoboothOpen, setIsPhotoboothOpen] = useState(false);
-  const [isChangelogOpen, setIsChangelogOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [sourceImage, setSourceImage] = useState(null);
   const [filename, setFilename] = useState('');
@@ -210,6 +209,16 @@ export default function App() {
     );
   }
 
+  if (currentView === 'changelog') {
+    return (
+      <ChangelogPage 
+        theme={theme} 
+        toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
+        onBack={() => setCurrentView('workspace')} 
+      />
+    );
+  }
+
   return (
     <>
       <Header
@@ -217,7 +226,7 @@ export default function App() {
         toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
         onOpenGuide={() => setCurrentView('guide')}
         onOpenPhotobooth={() => setIsPhotoboothOpen(true)}
-        onOpenChangelog={() => setIsChangelogOpen(true)}
+        onOpenChangelog={() => setCurrentView('changelog')}
         onOpenDocs={() => setCurrentView('docs')}
       />
 
@@ -326,11 +335,6 @@ export default function App() {
       <PhotoboothModal
         isOpen={isPhotoboothOpen}
         onClose={() => setIsPhotoboothOpen(false)}
-      />
-
-      <ChangelogModal
-        isOpen={isChangelogOpen}
-        onClose={() => setIsChangelogOpen(false)}
       />
 
       <ToastContainer toasts={toasts} />
