@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import GuideModal from './components/GuideModal';
+import EducationGuidePage from './components/EducationGuidePage';
 import DropZone from './components/Sidebar/DropZone';
 import Presets from './components/Sidebar/Presets';
 import SplitControls from './components/Sidebar/SplitControls';
@@ -20,9 +20,8 @@ import { Eye, Scissors, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import './App.css';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'workspace' | 'docs'
+  const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'workspace' | 'docs' | 'guide'
   const [theme, setTheme] = useState(() => localStorage.getItem('gridcut_theme') || 'theme-dark');
-  const [guideModalOpen, setGuideModalOpen] = useState(false);
   const [isPhotoboothOpen, setIsPhotoboothOpen] = useState(false);
   const [isChangelogOpen, setIsChangelogOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -201,12 +200,22 @@ export default function App() {
     );
   }
 
+  if (currentView === 'guide') {
+    return (
+      <EducationGuidePage 
+        theme={theme} 
+        toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
+        onBack={() => setCurrentView('workspace')} 
+      />
+    );
+  }
+
   return (
     <>
       <Header
         theme={theme}
         toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
-        onOpenGuide={() => setGuideModalOpen(true)}
+        onOpenGuide={() => setCurrentView('guide')}
         onOpenPhotobooth={() => setIsPhotoboothOpen(true)}
         onOpenChangelog={() => setIsChangelogOpen(true)}
         onOpenDocs={() => setCurrentView('docs')}
@@ -317,11 +326,6 @@ export default function App() {
       <PhotoboothModal
         isOpen={isPhotoboothOpen}
         onClose={() => setIsPhotoboothOpen(false)}
-      />
-
-      <GuideModal
-        isOpen={guideModalOpen}
-        onClose={() => setGuideModalOpen(false)}
       />
 
       <ChangelogModal
