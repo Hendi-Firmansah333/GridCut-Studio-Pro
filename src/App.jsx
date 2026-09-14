@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from './components/Header';
-import EducationGuidePage from './components/EducationGuidePage';
 import DropZone from './components/Sidebar/DropZone';
 import Presets from './components/Sidebar/Presets';
 import SplitControls from './components/Sidebar/SplitControls';
@@ -10,14 +9,24 @@ import ExportSettings from './components/Sidebar/ExportSettings';
 import LiveCanvas from './components/Workspace/LiveCanvas';
 import ResultsGallery from './components/Workspace/ResultsGallery';
 import ToastContainer from './components/Toast';
-import PhotoboothModal from './components/PhotoboothModal';
-import LandingPage from './components/LandingPage';
-import DocumentationPage from './components/DocumentationPage';
-import ChangelogPage from './components/ChangelogPage';
 import { sliceTiles } from './utils/splitter';
 import { downloadAllZip, copyTileToClipboard, downloadSingleTile, downloadFeedMockupSheet } from './utils/exporter';
-import { Eye, Scissors, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { Eye, Scissors, PanelLeftClose, PanelLeftOpen, Loader2 } from 'lucide-react';
 import './App.css';
+
+// Lazy loaded components for code splitting
+const LandingPage = lazy(() => import('./components/LandingPage'));
+const DocumentationPage = lazy(() => import('./components/DocumentationPage'));
+const EducationGuidePage = lazy(() => import('./components/EducationGuidePage'));
+const ChangelogPage = lazy(() => import('./components/ChangelogPage'));
+const PhotoboothModal = lazy(() => import('./components/PhotoboothModal'));
+
+// Loading Fallback Component
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-screen bg-white dark:bg-[#030303]">
+    <Loader2 className="w-8 h-8 animate-spin text-sky-500" />
+  </div>
+);
 
 export default function App() {
   const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'workspace' | 'docs' | 'guide' | 'changelog'
@@ -73,6 +82,18 @@ export default function App() {
     document.body.className = theme;
     localStorage.setItem('gridcut_theme', theme);
   }, [theme]);
+
+  // Prevent accidental tab close if workspace is active
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (sourceImage) {
+        e.preventDefault();
+        e.returnValue = ''; // Required for Chrome
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [sourceImage]);
 
   // Toast Helper
   const showToast = (message, type = 'info') => {
@@ -187,42 +208,50 @@ export default function App() {
 
   if (currentView === 'landing') {
     return (
-      <LandingPage 
-        onStart={() => setCurrentView('workspace')} 
-        onOpenDocs={() => setCurrentView('docs')}
-        onOpenGuide={() => setCurrentView('guide')}
-        onOpenChangelog={() => setCurrentView('changelog')}
-      />
+      <Suspense fallback={<PageLoader />}>
+        <LandingPage 
+          onStart={() => setCurrentView('workspace')} 
+          onOpenDocs={() => setCurrentView('docs')}
+          onOpenGuide={() => setCurrentView('guide')}
+          onOpenChangelog={() => setCurrentView('changelog')}
+        />
+      </Suspense>
     );
   }
 
   if (currentView === 'docs') {
     return (
-      <DocumentationPage 
-        theme={theme} 
-        toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
-        onBack={() => setCurrentView('workspace')} 
-      />
+      <Suspense fallback={<PageLoader />}>
+        <DocumentationPage 
+          theme={theme} 
+          toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
+          onBack={() => setCurrentView('workspace')} 
+        />
+      </Suspense>
     );
   }
 
   if (currentView === 'guide') {
     return (
-      <EducationGuidePage 
-        theme={theme} 
-        toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
-        onBack={() => setCurrentView('workspace')} 
-      />
+      <Suspense fallback={<PageLoader />}>
+        <EducationGuidePage 
+          theme={theme} 
+          toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
+          onBack={() => setCurrentView('workspace')} 
+        />
+      </Suspense>
     );
   }
 
   if (currentView === 'changelog') {
     return (
-      <ChangelogPage 
-        theme={theme} 
-        toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
-        onBack={() => setCurrentView('workspace')} 
-      />
+      <Suspense fallback={<PageLoader />}>
+        <ChangelogPage 
+          theme={theme} 
+          toggleTheme={() => setTheme(prev => prev === 'theme-dark' ? 'theme-light' : 'theme-dark')}
+          onBack={() => setCurrentView('workspace')} 
+        />
+      </Suspense>
     );
   }
 
@@ -340,10 +369,12 @@ export default function App() {
         </section>
       </main>
 
-      <PhotoboothModal
-        isOpen={isPhotoboothOpen}
-        onClose={() => setIsPhotoboothOpen(false)}
-      />
+      <Suspense fallback={null}>
+        <PhotoboothModal
+          isOpen={isPhotoboothOpen}
+          onClose={() => setIsPhotoboothOpen(false)}
+        />
+      </Suspense>
 
       <ToastContainer toasts={toasts} />
     </>
