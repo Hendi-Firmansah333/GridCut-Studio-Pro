@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, BookOpen, ChevronDown, ChevronRight, Sun, Moon, CheckCircle2, Terminal, Info, Lightbulb, Code, Layout, Cpu, History, Github, Box, Settings } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronDown, ChevronRight, Sun, Moon, CheckCircle2, Terminal, Info, Lightbulb, Code, Layout, Cpu, History, Box, Settings } from 'lucide-react';
 
 const SECTIONS = [
   { 
@@ -161,9 +161,8 @@ export default function DocumentationPage({ theme, toggleTheme, onBack }) {
           </h1>
         </div>
         <div className="flex items-center gap-2">
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-            <Github size={16} />
-            <span className="hidden sm:inline">GitHub Repository</span>
+          <a href="https://github.com/Hendi-Firmansah333/GridCut-Studio-Pro" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            <span className="hidden sm:inline font-bold">GitHub</span>
           </a>
           <div className="w-px h-4 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
           <button 
