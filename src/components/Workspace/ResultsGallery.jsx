@@ -185,7 +185,7 @@ export default function ResultsGallery({
   return (
     <div className="flex flex-col flex-1 h-full animate-in fade-in duration-300">
       {/* Gallery Toolbar with Mockup & ZIP Download Buttons */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-6 pt-6 pb-4 mt-2 bg-white dark:bg-zinc-900 border-y border-zinc-200 dark:border-zinc-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
         <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
           <span>Berhasil membagi gambar menjadi <strong className="text-sky-600 dark:text-sky-400 font-bold">{tiles.length} potongan HD</strong></span>
           <span className="opacity-50 text-zinc-300 dark:text-zinc-700">•</span>
