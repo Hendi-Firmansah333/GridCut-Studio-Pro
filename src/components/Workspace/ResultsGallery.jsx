@@ -184,47 +184,38 @@ export default function ResultsGallery({
 
   return (
     <div className="flex flex-col flex-1 h-full animate-in fade-in duration-300">
-      {/* Scrollable Gallery Container containing Toolbar, AI Studio and Grid */}
-      <div className="flex-1 overflow-auto p-4 md:p-6 bg-zinc-50 dark:bg-black/20 flex flex-col gap-6">
-        
-        {/* Gallery Toolbar Card */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-5 lg:p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm animate-in slide-in-from-bottom-2 duration-500">
-          
-          <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400 shadow-sm shrink-0">
-              <Check size={24} />
-            </div>
-            <div>
-              <h3 className="text-base md:text-lg font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
-                Pemotongan Selesai <span className="text-zinc-300 dark:text-zinc-700 font-normal mx-2">|</span> <span className="text-sky-600 dark:text-sky-400">{tiles.length} Bagian HD</span>
-              </h3>
-              <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-                Dimensi akhir: <strong className="font-semibold text-zinc-700 dark:text-zinc-300">{tiles[0]?.width} × {tiles[0]?.height} px</strong> per foto
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto mt-2 md:mt-0">
-            <button
-              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-sky-700 bg-sky-50 border border-sky-200 hover:bg-sky-100 dark:text-sky-300 dark:bg-sky-500/10 dark:border-sky-500/30 dark:hover:bg-sky-500/20 transition-all shadow-sm"
-              onClick={onDownloadMockup}
-              title="Download 1 gambar summary sheet berisi preview tampilan grid feed di profil Instagram Anda"
-            >
-              <Smartphone size={18} />
-              <span>Mockup Feed IG</span>
-            </button>
-
-            <button 
-              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all shadow-md shadow-emerald-600/20 active:scale-95"
-              onClick={onDownloadZip}
-            >
-              <Package size={18} />
-              <span>Download Semua ZIP</span>
-            </button>
-          </div>
+      {/* Gallery Toolbar with Mockup & ZIP Download Buttons */}
+      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+        <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+          <span>Berhasil membagi gambar menjadi <strong className="text-sky-600 dark:text-sky-400 font-bold">{tiles.length} potongan HD</strong></span>
+          <span className="opacity-50 text-zinc-300 dark:text-zinc-700">•</span>
+          <span>Dimensi <strong className="text-sky-600 dark:text-sky-400 font-bold">{tiles[0]?.width}×{tiles[0]?.height} px</strong> per foto</span>
         </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            className="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold text-sky-600 border border-sky-600 hover:bg-sky-50 dark:text-sky-400 dark:border-sky-500/50 dark:hover:bg-sky-500/10 transition-colors"
+            onClick={onDownloadMockup}
+            title="Download 1 gambar summary sheet berisi preview tampilan grid feed di profil Instagram Anda"
+          >
+            <Smartphone size={14} />
+            <span>Mockup Feed IG</span>
+          </button>
+
+          <button 
+            className="flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-colors shadow-sm"
+            onClick={onDownloadZip}
+          >
+            <Package size={14} />
+            <span>Download Semua ({tiles.length} ZIP)</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Scrollable Gallery Container containing AI Studio and Grid */}
+      <div className="flex-1 overflow-auto p-4 md:p-6 bg-zinc-50 dark:bg-black/20">
         {/* Killer Feature: AI Smart Vision & Caption Studio */}
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-sm animate-in slide-in-from-bottom-4 duration-500 delay-100">
+        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm mb-6 animate-in slide-in-from-bottom-4 duration-500">
           {/* Studio Header Bar */}
           <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800/50 bg-gradient-to-r from-sky-50/50 to-indigo-50/50 dark:from-sky-900/10 dark:to-indigo-900/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-start md:items-center gap-3">
