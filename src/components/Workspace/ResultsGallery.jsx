@@ -185,29 +185,38 @@ export default function ResultsGallery({
   return (
     <div className="flex flex-col flex-1 h-full animate-in fade-in duration-300">
       {/* Gallery Toolbar with Mockup & ZIP Download Buttons */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
-        <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-          <span>Berhasil membagi gambar menjadi <strong className="text-sky-600 dark:text-sky-400 font-bold">{tiles.length} potongan HD</strong></span>
-          <span className="opacity-50 text-zinc-300 dark:text-zinc-700">•</span>
-          <span>Dimensi <strong className="text-sky-600 dark:text-sky-400 font-bold">{tiles[0]?.width}×{tiles[0]?.height} px</strong> per foto</span>
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 px-6 py-4 lg:py-5 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 shrink-0 shadow-sm z-10">
+        
+        <div className="flex items-center gap-3.5">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400 shadow-sm shrink-0">
+            <Check size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm md:text-base font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
+              Pemotongan Selesai <span className="text-zinc-400 font-normal mx-1">•</span> <span className="text-sky-600 dark:text-sky-400">{tiles.length} Bagian HD</span>
+            </h3>
+            <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+              Dimensi akhir: <strong className="font-semibold text-zinc-700 dark:text-zinc-300">{tiles[0]?.width} × {tiles[0]?.height} px</strong> per foto
+            </p>
+          </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
           <button
-            className="flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold text-sky-600 border border-sky-600 hover:bg-sky-50 dark:text-sky-400 dark:border-sky-500/50 dark:hover:bg-sky-500/10 transition-colors"
+            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-sky-700 bg-sky-50 border border-sky-200 hover:bg-sky-100 dark:text-sky-300 dark:bg-sky-500/10 dark:border-sky-500/30 dark:hover:bg-sky-500/20 transition-all shadow-sm"
             onClick={onDownloadMockup}
             title="Download 1 gambar summary sheet berisi preview tampilan grid feed di profil Instagram Anda"
           >
-            <Smartphone size={14} />
+            <Smartphone size={16} />
             <span>Mockup Feed IG</span>
           </button>
 
           <button 
-            className="flex items-center gap-2 px-4 py-1.5 rounded-md text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-colors shadow-sm"
+            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all shadow-md shadow-emerald-600/20 active:scale-95"
             onClick={onDownloadZip}
           >
-            <Package size={14} />
-            <span>Download Semua ({tiles.length} ZIP)</span>
+            <Package size={16} />
+            <span>Download Semua ZIP</span>
           </button>
         </div>
       </div>
