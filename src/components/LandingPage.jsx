@@ -27,6 +27,28 @@ export default function LandingPage({ onStart, onOpenDocs, onOpenGuide, onOpenCh
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Scroll Reveal Observer (Tailwind based to preserve hover states)
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const animationClasses = el.getAttribute('data-animate')?.split(' ') || [];
+          if (animationClasses.length > 0) {
+            el.classList.remove('opacity-0');
+            el.classList.add(...animationClasses);
+          }
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    const elements = document.querySelectorAll('.scroll-animate');
+    elements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#030303] text-zinc-50 font-sans selection:bg-sky-500/30 overflow-x-hidden relative">
       
@@ -219,7 +241,7 @@ export default function LandingPage({ onStart, onOpenDocs, onOpenGuide, onOpenCh
       {/* Complex Bento Grid Section */}
       <section className="relative z-10 py-32 px-6 bg-black/50">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-20 relative">
+          <div className="text-center mb-20 relative scroll-animate opacity-0" data-animate="animate-in fade-in slide-in-from-bottom-8 duration-1000">
             <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-6">
               Lebih Hidup, Lebih Presisi.
             </h2>
@@ -228,7 +250,7 @@ export default function LandingPage({ onStart, onOpenDocs, onOpenGuide, onOpenCh
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Bento Item 1 */}
-            <div className="col-span-1 md:col-span-2 rounded-[2.5rem] p-8 md:p-12 bg-zinc-900/40 border border-zinc-800/50 hover:border-sky-500/30 transition-all duration-500 flex flex-col justify-between overflow-hidden relative group hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(56,189,248,0.1)]">
+            <div className="col-span-1 md:col-span-2 rounded-[2.5rem] p-8 md:p-12 bg-zinc-900/40 border border-zinc-800/50 hover:border-sky-500/30 transition-all duration-500 flex flex-col justify-between overflow-hidden relative group hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(56,189,248,0.1)] scroll-animate opacity-0" data-animate="animate-in fade-in slide-in-from-left-8 duration-1000">
               <div className="absolute -right-20 -top-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl group-hover:bg-sky-500/20 transition-all duration-700 group-hover:scale-150"></div>
               <div className="relative z-10">
                 <div className="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center mb-8 border border-sky-500/20 text-sky-400 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
@@ -242,7 +264,7 @@ export default function LandingPage({ onStart, onOpenDocs, onOpenGuide, onOpenCh
             </div>
 
             {/* Bento Item 2 */}
-            <div className="col-span-1 rounded-[2.5rem] p-8 bg-zinc-900/40 border border-zinc-800/50 hover:border-indigo-500/30 transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(99,102,241,0.1)] relative overflow-hidden">
+            <div className="col-span-1 rounded-[2.5rem] p-8 bg-zinc-900/40 border border-zinc-800/50 hover:border-indigo-500/30 transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(99,102,241,0.1)] relative overflow-hidden scroll-animate opacity-0" data-animate="animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
                 <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-6 border border-indigo-500/20 text-indigo-400 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
@@ -256,7 +278,7 @@ export default function LandingPage({ onStart, onOpenDocs, onOpenGuide, onOpenCh
             </div>
 
             {/* Bento Item 3 */}
-            <div className="col-span-1 rounded-[2.5rem] p-8 bg-zinc-900/40 border border-zinc-800/50 hover:border-emerald-500/30 transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.1)] relative overflow-hidden">
+            <div className="col-span-1 rounded-[2.5rem] p-8 bg-zinc-900/40 border border-zinc-800/50 hover:border-emerald-500/30 transition-all duration-500 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.1)] relative overflow-hidden scroll-animate opacity-0" data-animate="animate-in fade-in slide-in-from-left-8 duration-1000 delay-200">
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 border border-emerald-500/20 text-emerald-400 group-hover:scale-110 transition-transform duration-500">
@@ -270,7 +292,7 @@ export default function LandingPage({ onStart, onOpenDocs, onOpenGuide, onOpenCh
             </div>
 
             {/* Bento Item 4 */}
-            <div className="col-span-1 md:col-span-2 rounded-[2.5rem] p-8 md:p-12 bg-zinc-900/40 border border-zinc-800/50 hover:border-purple-500/30 transition-all duration-500 flex flex-col justify-between relative group overflow-hidden hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(168,85,247,0.1)]">
+            <div className="col-span-1 md:col-span-2 rounded-[2.5rem] p-8 md:p-12 bg-zinc-900/40 border border-zinc-800/50 hover:border-purple-500/30 transition-all duration-500 flex flex-col justify-between relative group overflow-hidden hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(168,85,247,0.1)] scroll-animate opacity-0" data-animate="animate-in fade-in slide-in-from-right-8 duration-1000">
                <div className="absolute -left-20 -bottom-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-all duration-700 group-hover:scale-150"></div>
               <div className="relative z-10 flex flex-col md:flex-row gap-10 items-center">
                 <div className="flex-1">
@@ -309,7 +331,7 @@ export default function LandingPage({ onStart, onOpenDocs, onOpenGuide, onOpenCh
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[800px] h-[800px] bg-sky-500/5 rounded-full blur-3xl"></div>
         </div>
-        <div className="relative z-10 max-w-3xl mx-auto">
+        <div className="relative z-10 max-w-3xl mx-auto scroll-animate opacity-0" data-animate="animate-in fade-in zoom-in-95 duration-1000">
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-6 text-white">Siap berkreasi sekarang?</h2>
           <p className="text-zinc-400 text-lg md:text-xl mb-12">Masuk ke workspace dan rasakan pengalaman mengedit gambar paling lancar, interaktif, dan presisi yang pernah ada.</p>
           <button 
