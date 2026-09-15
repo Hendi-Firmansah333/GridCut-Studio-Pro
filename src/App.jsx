@@ -312,7 +312,7 @@ export default function App() {
 
         {/* Center Panel: Workspace Tabs & Viewport */}
         <section className="flex-1 flex flex-col lg:overflow-hidden bg-white dark:bg-black/20 min-h-[60vh] lg:min-h-0">
-          <nav className="flex items-center px-4 md:px-6 pt-4 border-b border-zinc-200 dark:border-zinc-800 gap-4 md:gap-8 bg-white dark:bg-zinc-900 overflow-x-auto whitespace-nowrap hide-scrollbar">
+          <nav className="shrink-0 flex items-center px-4 md:px-6 pt-4 border-b border-zinc-200 dark:border-zinc-800 gap-4 md:gap-8 bg-white dark:bg-zinc-900 overflow-x-auto whitespace-nowrap hide-scrollbar">
             
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
